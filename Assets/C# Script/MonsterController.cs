@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PressureController : MonoBehaviour
+public class MonsterController : MonoBehaviour
 {
-    float speed = 1f; // 몬스터의 속도
-    public float maxHp = 30f; //몬스터의 최대 체력
+    float speed; // 몬스터의 속도
+    public float maxHp; //몬스터의 최대 체력
     private float currHp; //몬스터의 현재 hp
 
     GameObject player; //플레이어 오브젝트
@@ -15,14 +15,45 @@ public class PressureController : MonoBehaviour
     GameObject tower4; //타워4 오브젝트
     public GameObject hpbar; // 체력바를 보이거나 보이지 않게 하기 위해
     public RectTransform hpfront; // 체력바의 스케일을 조정해 닳게하기 위해
+    public GameObject expPrefab; // 경험치 오브젝트
 
     void Start()
     {
         this.player = GameObject.Find("player"); //플레이어의 찾기
         this.tower = GameObject.Find("tower"); //타워 찾기
-        this.tower2 = GameObject.Find("tower2"); //타워2 찾기 (없을수도 있음)
-        this.tower3 = GameObject.Find("tower3"); //타워3 찾기 (없을수도 있음)
-        this.tower4 = GameObject.Find("tower4"); //타워4 찾기 (없을수도 있음)
+        this.tower2 = GameObject.Find("tower2"); //타워2 찾기 (없을 수도 있음)
+        this.tower3 = GameObject.Find("tower3"); //타워3 찾기 (없을 수도 있음)
+        this.tower4 = GameObject.Find("tower4"); //타워3 찾기 (없을 수도 있음)
+
+        string monsterTag = gameObject.tag;
+
+        switch (monsterTag) //몬스터들의 체력과 스피드 설정
+        {
+            case "eat":
+                speed = 3f;
+                maxHp = 2f;
+                break;
+            case "gohome":
+                speed = 7f;
+                maxHp = 3f;
+                break;
+            case "what":
+                speed = 3f;
+                maxHp = 10f;
+                break;
+            case "no":
+                speed = 3f; 
+                maxHp = 20f;
+                break;
+            case "pressure":
+                speed = 1f;
+                maxHp = 30f;
+                break;
+            default:
+                speed = 0f;
+                maxHp = 0f;
+                break;
+        }
 
         currHp = maxHp; // 게임 시작시 최대체력에 따라 현재 체력 설정
         hpbar.SetActive(false); // 체력바 숨기기
@@ -30,10 +61,10 @@ public class PressureController : MonoBehaviour
     void Update()
     {
         if (currHp <= 0)
-        { 
+        {
             Destroy(gameObject);
-            PlayerController playerController = player.GetComponent<PlayerController>(); // 플레이어의 스크립트 참조
-            playerController.GainExperience(10f); // 경험치 10 증가 (적절한 값으로 조정)
+            GameObject exp = Instantiate(expPrefab, transform.position, Quaternion.identity);
+            Destroy(exp, 8.0f); // 8초 후에 경험치 오브젝트 삭제
             //체력이 0이되면 몬스터 비활성화(풀링 사용 때문)
             //PoolManager.instance.ReturnMonster(gameObject);
         }
@@ -47,7 +78,7 @@ public class PressureController : MonoBehaviour
         float playerToMonster = Vector3.Distance(monsterPosition, playerPosition); // 몬스터와 플레이어간의 거리
         float towerToMonster = Vector3.Distance(monsterPosition, towerPosition); // 몬스터와 타워간의 거리
 
-        // 타워, 타워2, 타워3, 타워4가 있을 경우
+        // 타워2, 타워3, 타워4가 있을 경우
         if (tower2 != null && tower3 != null && tower4 != null)
         {
             Vector3 tower2Position = tower2.GetComponent<Transform>().position; // 타워2의 위치
@@ -95,7 +126,7 @@ public class PressureController : MonoBehaviour
                 transform.position = Vector3.MoveTowards(monsterPosition, tower2Position, speed * Time.deltaTime); // 타워2로 가기
             }
         }
-
+        
         // 타워만 있을 경우
         else
         {
@@ -110,6 +141,11 @@ public class PressureController : MonoBehaviour
         }
     }
 
+    public void TakeDamage(float damage)
+    {
+        currHp -= damage;
+        hpfront.localScale = new Vector3(currHp / maxHp, 1.0f, 1.0f); // 체력바 업데이트
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -124,11 +160,7 @@ public class PressureController : MonoBehaviour
                 Destroy(collision.gameObject); //충돌한 기는 파괴
 
             }
-            else
-            {
-                PlayerController playerController = player.GetComponent<PlayerController>(); // 플레이어의 스크립트 참조
-                playerController.GainExperience(10f); // 경험치 10 증가 (적절한 값으로 조정)
-            }
         }
     }
 }
+

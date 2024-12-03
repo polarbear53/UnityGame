@@ -373,6 +373,7 @@ MonoBehaviour:
   maxHp: 2
   hpbar: {fileID: 4069854822339873063}
   hpfront: {fileID: 7214817619281725529}
+  expPrefab: {fileID: 5951295954772999054, guid: e20cb2663c75add45854ba368caaf5bb, type: 3}
 --- !u!50 &-8002269319143970956
 Rigidbody2D:
   serializedVersion: 4

@@ -365,7 +365,7 @@ GameObject:
   - component: {fileID: 2892625541223876154}
   - component: {fileID: 5817880119418937336}
   - component: {fileID: 7651827839749780811}
-  - component: {fileID: 3793213803946508456}
+  - component: {fileID: 3594471910560274756}
   - component: {fileID: 952050701617608654}
   m_Layer: 0
   m_Name: gohomePrefab
@@ -487,7 +487,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.6, y: 1.6}
   m_EdgeRadius: 0
---- !u!114 &3793213803946508456
+--- !u!114 &3594471910560274756
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -496,12 +496,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2606757891218327954}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be77437ca2707e14ca0cb59306e725de, type: 3}
+  m_Script: {fileID: 11500000, guid: 1ad0271e0fac8d44b9a7cdd4da1b652c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 1
+  maxHp: 2
   hpbar: {fileID: 1264649664071032828}
   hpfront: {fileID: 2370222262561944605}
+  expPrefab: {fileID: 5951295954772999054, guid: e20cb2663c75add45854ba368caaf5bb, type: 3}
 --- !u!50 &952050701617608654
 Rigidbody2D:
   serializedVersion: 4

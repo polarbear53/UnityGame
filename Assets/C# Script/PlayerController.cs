@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        Vector3 pos = transform.position; //플레이어의 위치
+        Vector2 pos = transform.position; //플레이어의 위치
         pos.x = Mathf.Clamp(pos.x, minBounds.x, maxBounds.x); //플레이어의 위치를 맵 크기에 맞춰 제한
         pos.y = Mathf.Clamp(pos.y, minBounds.y, maxBounds.y);
         transform.position = pos; //제한된 위치로 변환
@@ -69,8 +69,8 @@ public class PlayerController : MonoBehaviour
         Vector2 move = new Vector2(x, y);
         moveVelocity = move.normalized * speed; // 속도에 맞춰 벡터값 정규화
 
-        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition); //마우스가 클릭된 위치 구하기
-        dir = (mousePosition - transform.position).normalized; ////마우스가 클릭되었을 때 위치와 플레이어의 위치 간의 방향 구하기
+        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition); //마우스가 클릭된 위치 구하기
+        dir = (mousePosition - pos).normalized; ////마우스가 클릭되었을 때 위치와 플레이어의 위치 간의 방향 구하기
 
         if (Input.GetMouseButtonDown(0) && Time.time > nextShootTime) // 마우스를 좌클릭 했을때, 딜레이 시간이 지나면
         {
@@ -256,6 +256,10 @@ public class PlayerController : MonoBehaviour
             {
                 GameOver();
             }
+        }
+        if (collision.gameObject.CompareTag("exp")) {
+            GainExperience(10); // 경험치 획득
+            Destroy(collision.gameObject);
         }
 
     }
