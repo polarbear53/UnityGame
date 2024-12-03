@@ -16,8 +16,12 @@ public class TowerGiController : MonoBehaviour
 
     void Update()
     {
-        if (target != null)
+        if (target == null) // 타겟이 없으면 소멸
         {
+            Destroy(gameObject);
+            return; //타켓이 없으면 실행되지 않도록
+        }
+        else {
             // 타겟 방향으로 이동
             Vector3 direction = (target.transform.position - transform.position).normalized;
             transform.position += direction * speed * Time.deltaTime;
@@ -41,7 +45,7 @@ public class TowerGiController : MonoBehaviour
         if (collision.gameObject == target)
         {
             // 타겟에 도달했을 때 데미지 입히기
-            var targetController = collision.GetComponent<GohomeController>();
+            var targetController = collision.GetComponent<MonsterController>();
             if (targetController != null)
             {
                 targetController.TakeDamage(1.0f); // 데미지 1 주기
