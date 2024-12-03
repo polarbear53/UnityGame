@@ -899,7 +899,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 10
+  orthographic size: 20
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -2078,6 +2078,8 @@ MonoBehaviour:
   - {fileID: 1649194364264888269, guid: aef7f0b9a37e9a7499ae0fd8801656a1, type: 3}
   - {fileID: 7544334178097128061, guid: 77084568e43497b43a45269b560ca34a, type: 3}
   tower2: {fileID: 448382840}
+  tower3: {fileID: 0}
+  tower4: {fileID: 0}
 --- !u!4 &1167550462
 Transform:
   m_ObjectHideFlags: 0
@@ -2688,6 +2690,11 @@ MonoBehaviour:
   giPrefab: {fileID: 923976885994406078, guid: 52daac077dd62864689ff5666e900138, type: 3}
   hpbar: {fileID: 502682733}
   hpfront: {fileID: 1315034711}
+  maxExp: 200
+  minExp: 1
+  expbar: {fileID: 0}
+  expfront: {fileID: 0}
+  stageTimeLimit: 180
   pool: {fileID: 0}
 --- !u!61 &1831792791
 BoxCollider2D:

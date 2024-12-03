@@ -27,6 +27,9 @@ public class PlayerController : MonoBehaviour
     public GameObject expbar; // 경험치바를 보이거나 보이지 않게 하기 위해
     public RectTransform expfront; // 경험치바의 스케일을 조정해 닳게하기 위해
 
+    public float stageTimeLimit = 180f; // 스테이지 제한 시간 (초 단위)
+    private float elapsedTime = 0f;    // 경과 시간
+
     public PoolManager pool;
 
     Vector2 minBounds = new Vector2(-57, -32); //맵의 크기
@@ -45,6 +48,16 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if (Time.timeScale > 0) // 게임이 일시정지 상태가 아닐 때만 타이머 작동
+        {
+            elapsedTime += Time.deltaTime;
+
+            if (elapsedTime >= stageTimeLimit)
+            {
+                StageClear();
+            }
+        }
+
         Vector3 pos = transform.position; //플레이어의 위치
         pos.x = Mathf.Clamp(pos.x, minBounds.x, maxBounds.x); //플레이어의 위치를 맵 크기에 맞춰 제한
         pos.y = Mathf.Clamp(pos.y, minBounds.y, maxBounds.y);
@@ -64,6 +77,49 @@ public class PlayerController : MonoBehaviour
             nextShootTime = Time.time + ShootRate; //딜레이 시간 재조정
             Shoot(); //쏘기
         }
+    }
+
+    private void StageClear()
+    {
+        string currentSceneName = SceneManager.GetActiveScene().name; // 현재 씬 이름 가져오기
+        string nextSceneName = GetNextSceneName(currentSceneName);    // 다음 씬 이름 계산
+
+
+        Debug.Log($"Stage Clear! Moving to next scene: {nextSceneName}");
+        SceneManager.LoadScene(nextSceneName);
+        
+    }
+
+    private string GetNextSceneName(string currentSceneName)
+    {
+        // 정규식을 사용해 숫자를 추출
+        System.Text.RegularExpressions.Match match =
+            System.Text.RegularExpressions.Regex.Match(currentSceneName, @"(\d+)$");
+
+        if (match.Success)
+        {
+            int currentSceneNumber = int.Parse(match.Value); // 현재 씬 번호 추출
+            string nextSceneName;
+
+            // ClearNextScene → GameScene 전환
+            if (currentSceneName.StartsWith("ClearNextScene"))
+            {
+                nextSceneName = $"GameScene{currentSceneNumber}"; // GameSceneX로 이동
+            }
+            // GameScene → ClearNextScene 전환
+            else if (currentSceneName.StartsWith("GameScene"))
+            {
+                nextSceneName = $"ClearNextScene{currentSceneNumber + 1}"; // ClearNextSceneX로 이동
+            }
+            else
+            {
+                nextSceneName = null; // 예상치 못한 씬 이름
+            }
+
+            return nextSceneName;
+        }
+
+        return null; // 숫자가 포함되지 않은 경우
     }
 
     private void UpdateExpBar()

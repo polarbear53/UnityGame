@@ -10,7 +10,11 @@ public class Spawner : MonoBehaviour
     public GameObject tower3;  // 타워3 오브젝트
     public GameObject tower4;  // 타워4 오브젝트
 
-    float spawnTime = 0f;
+    private float spawnTime = 0f;        // 스폰 타이머
+    private float elapsedTime = 0f;     // 게임 총 경과 시간
+    private float spawnDelay = 1f;      // 초기 스폰 딜레이 (1초)
+    private const float spawnDelayReduction = 0.2f; // 1분 경과 시 딜레이 감소 값
+    private const float minSpawnDelay = 0.3f;       // 최소 스폰 딜레이 값
 
     void Awake() 
     {
@@ -19,12 +23,34 @@ public class Spawner : MonoBehaviour
    
     void Update()
     {
-        spawnTime += Time.deltaTime; //마지막 프레임이 완료된 후 시간을 계속 더해줌
+        spawnTime += Time.deltaTime;   // 스폰 타이머 증가
+        elapsedTime += Time.deltaTime; // 총 경과 시간 증가
 
-        if (spawnTime > 0.7f) // 1초가 지난다면
+        // 1분마다 스폰 딜레이 감소
+        if (elapsedTime >= 60f)
         {
-            spawnTime = 0f; //다시 0
-            Spawn();//몬스터 스폰
+            IncreaseSpawnSpeed();
+            elapsedTime = 0f; // 경과 시간 초기화
+        }
+
+        // 스폰 딜레이 초과 시 몬스터 스폰
+        if (spawnTime > spawnDelay)
+        {
+            spawnTime = 0f; // 타이머 초기화
+            Spawn();        // 몬스터 스폰
+        }
+    }
+
+    void IncreaseSpawnSpeed()
+    {
+        if (spawnDelay > minSpawnDelay) // 최소 스폰 딜레이보다 크면 감소
+        {
+            spawnDelay -= spawnDelayReduction;
+            Debug.Log($"Spawn speed increased! New spawn delay: {spawnDelay:F2}s");
+        }
+        else
+        {
+            Debug.Log("Spawn delay is at its minimum!");
         }
     }
 

@@ -3428,6 +3428,7 @@ MonoBehaviour:
   minExp: 0
   expbar: {fileID: 1241886795}
   expfront: {fileID: 2015560289}
+  stageTimeLimit: 180
   pool: {fileID: 0}
 --- !u!61 &1831792791
 BoxCollider2D:

@@ -721,7 +721,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 15
+  orthographic size: 20
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -2721,6 +2721,7 @@ MonoBehaviour:
   minExp: 0
   expbar: {fileID: 1298106040}
   expfront: {fileID: 1513355569}
+  stageTimeLimit: 180
   pool: {fileID: 0}
 --- !u!61 &1831792791
 BoxCollider2D:

@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/MainScene.unity
     guid: ef3e2622c3a115145841f85dd8ce9be9
   - enabled: 1
-    path: Assets/Scenes/GameScene.unity
+    path: Assets/Scenes/GameScene1.unity
     guid: bfc7ccfe074299846a7afc84f877cfb4
   - enabled: 1
     path: Assets/Scenes/ClearNextScene2.unity
@@ -35,6 +35,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GameScene5.unity
     guid: de69427fd19932c419433c32aed923c9
+  - enabled: 1
+    path: Assets/Scenes/ClearNextScene6.unity
+    guid: af94d911f47b53146bad259e0cc67b8e
   - enabled: 1
     path: Assets/Scenes/GameOver.unity
     guid: 14ed1f63b05eb794cb27fb4d958f639d
