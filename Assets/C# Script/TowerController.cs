@@ -185,7 +185,8 @@ public class TowerController : MonoBehaviour
 
     void FireProjectile(GameObject target)
     {
-        GameObject projectile = Instantiate(towergiPrefab, transform.position, Quaternion.identity);
+        GameObject projectile = PoolManager.instance.GetPreFab(towergiPrefab);
+        projectile.transform.position = transform.position;
         TowerGiController projectileScript = projectile.GetComponent<TowerGiController>();
         if (projectileScript != null)
         {
@@ -223,7 +224,7 @@ public class TowerController : MonoBehaviour
         {
             currHp -= damage;
             hpfront.localScale = new Vector3(currHp / maxHp, 1.0f, 1.0f);
-            Destroy(monster);
+            PoolManager.instance.ReturnPreFab(monster);
         }
         else
         {
