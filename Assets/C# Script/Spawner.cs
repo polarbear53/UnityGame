@@ -56,23 +56,34 @@ public class Spawner : MonoBehaviour
 
     void Spawn()
     {
+        GameObject monster = null;
+        int prefabIndex = 0;
+
         // 타워, 타워2, 타워3, 타워4가 있을 경우
         if (tower2 != null && tower3 != null && tower4 != null)
         {
-            GameObject monster2 = Instantiate(prefabs[Random.Range(0, 5)], transform);
-            monster2.transform.position = spawnPoint[Random.Range(1, spawnPoint.Length)].position;
+            prefabIndex = Random.Range(0, 5);
         }
-
         // 타워, 타워2가 있을 경우
         else if (tower2 != null)
         {
-            GameObject monster2 = Instantiate(prefabs[Random.Range(0, 3)], transform);
-            monster2.transform.position = spawnPoint[Random.Range(1, spawnPoint.Length)].position;
+            prefabIndex = Random.Range(0, 3);
         }
         else
         {
-            GameObject monster = Instantiate(prefabs[Random.Range(0, 2)], transform); //몬스터 생성하기(프리팹에 있는 몬스터중 랜덤하게 0번째 인덱스의 몬스터부터 1번째 몬스터)
-            monster.transform.position = spawnPoint[Random.Range(1, spawnPoint.Length)].position;// 스폰 위치는 spawnPoint의 1번부터 마지막까지(0번은 스포너 위치(0,0))
+            prefabIndex = Random.Range(0, 2);
+        }
+
+        monster = PoolManager.instance.GetPreFab(prefabs[prefabIndex]); //몬스터 생성
+
+        if (monster != null)
+        {
+            int spawnIndex = Random.Range(1, spawnPoint.Length); //스폰 포인트 중 랜덤으로 선택(0번 인덱스는 스포너 자신)
+            monster.transform.position = spawnPoint[spawnIndex].position; //스폰 포인트에 몬스터 옮기기
+        }
+        else
+        {
+            Debug.LogError("몬스터 스폰에 실패하였습니다.");
         }
     }
 }
