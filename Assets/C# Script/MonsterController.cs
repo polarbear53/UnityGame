@@ -24,49 +24,16 @@ public class MonsterController : MonoBehaviour
         this.tower2 = GameObject.Find("tower2"); //타워2 찾기 (없을 수도 있음)
         this.tower3 = GameObject.Find("tower3"); //타워3 찾기 (없을 수도 있음)
         this.tower4 = GameObject.Find("tower4"); //타워3 찾기 (없을 수도 있음)
+        InitMonster(); //몬스터 초기화
 
-        string monsterTag = gameObject.tag;
-
-        switch (monsterTag) //몬스터들의 체력과 스피드 설정
-        {
-            case "eat":
-                speed = 3f;
-                maxHp = 2f;
-                break;
-            case "gohome":
-                speed = 7f;
-                maxHp = 3f;
-                break;
-            case "what":
-                speed = 3f;
-                maxHp = 10f;
-                break;
-            case "no":
-                speed = 3f; 
-                maxHp = 20f;
-                break;
-            case "pressure":
-                speed = 1f;
-                maxHp = 30f;
-                break;
-            default:
-                speed = 0f;
-                maxHp = 0f;
-                break;
-        }
-
-        currHp = maxHp; // 게임 시작시 최대체력에 따라 현재 체력 설정
-        hpbar.SetActive(false); // 체력바 숨기기
     }
     void Update()
     {
         if (currHp <= 0)
         {
-            Destroy(gameObject);
-            GameObject exp = Instantiate(expPrefab, transform.position, Quaternion.identity);
-            Destroy(exp, 8.0f); // 8초 후에 경험치 오브젝트 삭제
-            //체력이 0이되면 몬스터 비활성화(풀링 사용 때문)
-            //PoolManager.instance.ReturnMonster(gameObject);
+            PoolManager.instance.ReturnPreFab(gameObject); //체력이 0이되면 몬스터 비활성화(풀링 사용 때문)
+            GameObject exp = PoolManager.instance.GetPreFab(expPrefab); //경험치 생성
+            exp.transform.position = transform.position; //경험치 위치 설정(몬스터 위치에서 생성)
         }
     }
     void FixedUpdate()
@@ -141,6 +108,48 @@ public class MonsterController : MonoBehaviour
         }
     }
 
+    void InitMonster() //몬스터가 생성, 활성화 될때 초기화 해주는 함수
+    {
+        string monsterTag = gameObject.tag;
+
+        switch (monsterTag) // 몬스터 태그에 따라 체력과 스피드 설정
+        {
+            case "eat":
+                speed = 3f;
+                maxHp = 2f;
+                break;
+            case "gohome":
+                speed = 7f;
+                maxHp = 3f;
+                break;
+            case "what":
+                speed = 3f;
+                maxHp = 10f;
+                break;
+            case "no":
+                speed = 3f;
+                maxHp = 20f;
+                break;
+            case "pressure":
+                speed = 1f;
+                maxHp = 30f;
+                break;
+            default:
+                speed = 0f;
+                maxHp = 0f;
+                break;
+        }
+
+        currHp = maxHp; //최대 체력에 따라 현재 체력 설정
+        hpbar.SetActive(false); // 체력바 숨기기
+    }
+
+    private void OnEnable()
+    {
+        InitMonster(); // 활성화될 때 몬스터 초기화
+    }
+
+
     public void TakeDamage(float damage)
     {
         currHp -= damage;
@@ -157,7 +166,7 @@ public class MonsterController : MonoBehaviour
                 currHp -= 1.0f; //현재 체력 갂기
                 hpfront.localScale = new Vector3(currHp / maxHp, 1.0f, 1.0f); // 현재 체력을 최대 체력으로 나누어서 hp조절
 
-                Destroy(collision.gameObject); //충돌한 기는 파괴
+                PoolManager.instance.ReturnPreFab(collision.gameObject); //충돌한 기는 비활성화(풀링)
 
             }
         }

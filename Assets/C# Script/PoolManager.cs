@@ -2,12 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//작동이 안되요 ㅠㅠㅠ
-
 public class PoolManager : MonoBehaviour
 {
-    public GameObject[] prefabs; //prefabs를 보관한 배열
-    private List<GameObject>[] pools; //풀링을 담당하는 리스트 변수
+    private Dictionary<GameObject, List<GameObject>> pools; //프리팹과 풀을 매핑하는 딕셔너리
     public static PoolManager instance; //싱글톤 패턴 구현으로 이 스크립트를 다른 스크립트에서도 접근 가능하게 함
 
     void Awake()
@@ -19,41 +16,43 @@ public class PoolManager : MonoBehaviour
         else if (instance != this)
         {
             Destroy(gameObject);
+            return;
         }
 
         DontDestroyOnLoad(gameObject);
 
-        pools = new List<GameObject>[prefabs.Length]; //prefab의 갯수 만큼 리스트 배열 생성
+        pools = new Dictionary<GameObject, List<GameObject>>();
 
-        for (int i = 0; i < prefabs.Length; i++) //리스트 초기화
-        {
-            pools[i] = new List<GameObject>();
-        }
     }
 
-    public GameObject GetMonster(int Index) //게임 오브젝트를 반환하는 함수
+    public GameObject GetPreFab(GameObject prefab) //게임 오브젝트를 반환하는 함수
     {
+        if (!pools.ContainsKey(prefab)) //풀 안에 오브젝트에 해당하는 리스트가 없다면
+        {
+            pools[prefab] = new List<GameObject>(); //새로운 리스트 생성
+        }
+
         GameObject select = null; //게임 오브젝트를 반환하기 위한 지역변수
 
-        foreach (GameObject item in pools[Index]) //pool의 인덱스 리스트의 데이터에 접근
+        foreach (GameObject obj in pools[prefab]) //풀에서 오브젝트에 해당하는 리스트에 확인 
         {
-            if (!item.activeSelf)
-            { //내용물 오브젝트가 비활성화 되어있는게 있다면 
-                select = item;// 비활성화 되어있는 오브젝트 할당
+            if (!obj.activeSelf) //풀에 오브젝트가 비활성화 되어있는게 있다면 
+            {
+                select = obj;// 비활성화 되어있는 오브젝트 할당
                 select.SetActive(true); //활성화 시키기
                 break;
             }
         }
-        if (!select) 
+        if (select == null) // 비활성화 된 오브젝트를 찾지 못한다면 
         {
-            select = Instantiate(prefabs[Index], transform); //새롭게 오브젝트를 생성하고 할당
-            pools[Index].Add(select); //생성된 오브젝트는 풀 리스트에 추가
+            select = Instantiate(prefab, transform); //새롭게 오브젝트를 생성하고 할당
+            pools[prefab].Add(select); //생성된 오브젝트는 풀 리스트에 추가
         }
         return select; //게임 오브젝트 반환
     }
 
-    public void ReturnMonster(GameObject monster) //몬스터 오브젝트를 반환하는 함수
+    public void ReturnPreFab(GameObject obj) // 오브젝트를 반환하는 함수
     {
-        monster.SetActive(false);
+        obj.SetActive(false);
     }
 }

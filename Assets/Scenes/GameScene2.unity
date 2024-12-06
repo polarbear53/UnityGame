@@ -1915,7 +1915,7 @@ GameObject:
   - component: {fileID: 1233676061}
   - component: {fileID: 1233676062}
   m_Layer: 0
-  m_Name: "poolManager(\uC791\uB3D9X)"
+  m_Name: poolManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1948,12 +1948,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a7088861b92c0c46bc10537d41f3b20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabs:
-  - {fileID: 5243625195759793636, guid: f61574a23c549764e9101ca689d35f10, type: 3}
-  - {fileID: 2606757891218327954, guid: 6ca7fd2596503f6438e58244c3efd506, type: 3}
-  - {fileID: 535973621483142263, guid: cf6acbd1d83e04a4fa2638414fe9ad1c, type: 3}
-  - {fileID: 1649194364264888269, guid: aef7f0b9a37e9a7499ae0fd8801656a1, type: 3}
-  - {fileID: 7544334178097128061, guid: 77084568e43497b43a45269b560ca34a, type: 3}
 --- !u!1 &1243273635
 GameObject:
   m_ObjectHideFlags: 0
@@ -2722,7 +2716,6 @@ MonoBehaviour:
   expbar: {fileID: 1298106040}
   expfront: {fileID: 1513355569}
   stageTimeLimit: 180
-  pool: {fileID: 0}
 --- !u!58 &1831792791
 CircleCollider2D:
   m_ObjectHideFlags: 0

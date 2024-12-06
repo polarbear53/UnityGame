@@ -30,8 +30,6 @@ public class PlayerController : MonoBehaviour
     public float stageTimeLimit = 180f; // 스테이지 제한 시간 (초 단위)
     private float elapsedTime = 0f;    // 경과 시간
 
-    public PoolManager pool;
-
     Vector2 minBounds = new Vector2(-57, -32); //맵의 크기
     Vector2 maxBounds = new Vector2(57, 32);
     Vector2 startPos = new Vector2(0, -2); //시작 위치 조정
@@ -170,10 +168,7 @@ public class PlayerController : MonoBehaviour
                 currHp -= 1.0f; //체력 1갂기
                 hpfront.localScale = new Vector3(currHp / maxHp, 1.0f, 1.0f); // 현재 체력을 최대 체력으로 나누어서 hp조절
 
-                Destroy(collision.gameObject); //부딪힌 몬스터 삭제 
-
-                //풀링을 사용한다면....
-                //PoolManager.instance.ReturnMonster(collision.gameObject); 충돌한 몬스터 비활성화(풀링)
+                PoolManager.instance.ReturnPreFab(collision.gameObject); //충돌한 몬스터 비활성화(풀링)
 
             }
 
@@ -189,10 +184,7 @@ public class PlayerController : MonoBehaviour
                 currHp -= 1.0f; //체력 1갂기
                 hpfront.localScale = new Vector3(currHp / maxHp, 1.0f, 1.0f); // 현재 체력을 최대 체력으로 나누어서 hp조절
 
-                Destroy(collision.gameObject); //부딪힌 몬스터 삭제 
-
-                //풀링을 사용한다면....
-                //PoolManager.instance.ReturnMonster(collision.gameObject); 충돌한 몬스터 비활성화(풀링)
+                PoolManager.instance.ReturnPreFab(collision.gameObject);//충돌한 몬스터 비활성화(풀링)
 
             }
 
@@ -208,11 +200,7 @@ public class PlayerController : MonoBehaviour
                 currHp -= 2.0f; //체력 2갂기
                 hpfront.localScale = new Vector3(currHp / maxHp, 1.0f, 1.0f); // 현재 체력을 최대 체력으로 나누어서 hp조절
 
-                Destroy(collision.gameObject); //부딪힌 몬스터 삭제 
-
-                //풀링을 사용한다면....
-                //PoolManager.instance.ReturnMonster(collision.gameObject); 충돌한 몬스터 비활성화(풀링)
-
+                PoolManager.instance.ReturnPreFab(collision.gameObject); //충돌한 몬스터 비활성화(풀링)
             }
 
             else
@@ -227,10 +215,7 @@ public class PlayerController : MonoBehaviour
                 currHp -= 3.0f; //현재 체력 갂기
                 hpfront.localScale = new Vector3(currHp / maxHp, 1.0f, 1.0f); // 현재 체력을 최대 체력으로 나누어서 hp조절
 
-                Destroy(collision.gameObject); //부딪힌 몬스터 삭제 
-
-                //풀링을 사용한다면....
-                //PoolManager.instance.ReturnMonster(collision.gameObject); 충돌한 몬스터 비활성화(풀링)
+                PoolManager.instance.ReturnPreFab(collision.gameObject); //충돌한 몬스터 비활성화(풀링)
 
             }
 
@@ -245,10 +230,8 @@ public class PlayerController : MonoBehaviour
             { //현재 체력이 남아있다면
                 currHp -= 5.0f; //현재 체력 갂기
                 hpfront.localScale = new Vector3(currHp / maxHp, 1.0f, 1.0f); // 현재 체력을 최대 체력으로 나누어서 hp조절
-                Destroy(collision.gameObject); //부딪힌 몬스터 삭제 
 
-                //풀링을 사용한다면....
-                //PoolManager.instance.ReturnMonster(collision.gameObject); 충돌한 몬스터 비활성화(풀링)
+                PoolManager.instance.ReturnPreFab(collision.gameObject); //충돌한 몬스터 비활성화(풀링)
 
             }
 
@@ -259,9 +242,8 @@ public class PlayerController : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("exp")) {
             GainExperience(10); // 경험치 획득
-            Destroy(collision.gameObject);
+            PoolManager.instance.ReturnPreFab(collision.gameObject); //경험치 반환
         }
-
     }
 
     public void GameOver()
@@ -270,7 +252,7 @@ public class PlayerController : MonoBehaviour
     }
 
     void Shoot() { // 기를 쏘는 함수
-        GameObject gi = Instantiate(giPrefab); //플레이어 위치에 기 스폰
+        GameObject gi = PoolManager.instance.GetPreFab(giPrefab); //풀에서 기를 가져오기
         gi.transform.position = transform.position; //기의 위치를 플레이어의 위치로 이동
         gi.GetComponent<Rigidbody2D>().velocity = dir * giSpeed; //설정한 기의 속도만큼 마우스 위치로 발사
     }
