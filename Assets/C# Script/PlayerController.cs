@@ -9,6 +9,8 @@ using System.Linq;
 public class PlayerController : MonoBehaviour
 {
     Rigidbody2D rigid2D; // 물리 이동을 위한 변수
+    SpriteRenderer spriter;//좌우반전을 위한 변수
+    Animator anim;//애니메이션 적용을 위한 변수
     Vector2 moveVelocity; //정규화된 벡터값을 담기 위한 변수
     Vector3 dir; //마우스 방향벡터를 저장할 변수
 
@@ -46,6 +48,8 @@ public class PlayerController : MonoBehaviour
     {
 
         rigid2D = GetComponent<Rigidbody2D>(); //rigidbody 컴포넌트 가져오기
+        spriter = GetComponent<SpriteRenderer>();//sprite 컴포넌트 가져오기
+        anim = GetComponent<Animator>();//animator 컴포넌트가져오기
         transform.position = startPos; //시작지점에서 시작
         currHp = maxHp; // 최대 체력만큼 현재 체력 설정
         currExp = minExp; // 최소치 Exp로 설정
@@ -87,6 +91,12 @@ public class PlayerController : MonoBehaviour
         {
             nextShootTime = Time.time + ShootRate; //딜레이 시간 재조정
             Shoot(); //쏘기
+        }
+        
+        anim.SetFloat("speed", move.magnitude);//움직임이 있으면 move애니메이션적용
+        if (x != 0)
+        {
+            spriter.flipX = x < 0;//x값에 따라 좌우 반전
         }
     }
 
@@ -429,6 +439,7 @@ public class PlayerController : MonoBehaviour
             PoolManager.instance.ReturnPreFab(collision.gameObject); //경험치 반환
         }
     }
+
 
     public void GameOver()
     {

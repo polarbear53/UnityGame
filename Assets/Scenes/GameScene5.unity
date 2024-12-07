@@ -951,6 +951,7 @@ GameObject:
   - component: {fileID: 448382843}
   - component: {fileID: 448382842}
   - component: {fileID: 448382841}
+  - component: {fileID: 448382846}
   m_Layer: 0
   m_Name: tower2
   m_TagString: tower
@@ -976,6 +977,10 @@ MonoBehaviour:
   towergiPrefab: {fileID: 1506026446742903462, guid: d5370d119b3f32c488fc14fce808a49d, type: 3}
   attackRange: 10
   fireRate: 0.5
+  TowerAttackSpeed: {fileID: 0}
+  TowerDamage: {fileID: 0}
+  TowerGiSpeed: {fileID: 0}
+  TowerHpRecovery: {fileID: 0}
 --- !u!50 &448382842
 Rigidbody2D:
   serializedVersion: 4
@@ -1116,6 +1121,27 @@ Transform:
   - {fileID: 1888564823}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &448382846
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 448382840}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7daadda3701a5114f89de7b9c2541ec1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &454445105
 GameObject:
   m_ObjectHideFlags: 0
@@ -1966,6 +1992,7 @@ GameObject:
   - component: {fileID: 976911618}
   - component: {fileID: 976911619}
   - component: {fileID: 976911620}
+  - component: {fileID: 976911621}
   m_Layer: 0
   m_Name: tower
   m_TagString: tower
@@ -2131,6 +2158,31 @@ MonoBehaviour:
   towergiPrefab: {fileID: 1506026446742903462, guid: d5370d119b3f32c488fc14fce808a49d, type: 3}
   attackRange: 10
   fireRate: 0.5
+  TowerAttackSpeed: {fileID: 0}
+  TowerDamage: {fileID: 0}
+  TowerGiSpeed: {fileID: 0}
+  TowerHpRecovery: {fileID: 0}
+--- !u!95 &976911621
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 976911615}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7daadda3701a5114f89de7b9c2541ec1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &982144814
 GameObject:
   m_ObjectHideFlags: 0
@@ -3087,6 +3139,7 @@ GameObject:
   - component: {fileID: 1661887351}
   - component: {fileID: 1661887350}
   - component: {fileID: 1661887349}
+  - component: {fileID: 1661887354}
   m_Layer: 0
   m_Name: tower3
   m_TagString: tower
@@ -3112,6 +3165,10 @@ MonoBehaviour:
   towergiPrefab: {fileID: 1506026446742903462, guid: d5370d119b3f32c488fc14fce808a49d, type: 3}
   attackRange: 10
   fireRate: 0.5
+  TowerAttackSpeed: {fileID: 0}
+  TowerDamage: {fileID: 0}
+  TowerGiSpeed: {fileID: 0}
+  TowerHpRecovery: {fileID: 0}
 --- !u!50 &1661887350
 Rigidbody2D:
   serializedVersion: 4
@@ -3252,6 +3309,27 @@ Transform:
   - {fileID: 95146851}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1661887354
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1661887348}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7daadda3701a5114f89de7b9c2541ec1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1724964211
 GameObject:
   m_ObjectHideFlags: 0
@@ -3296,6 +3374,7 @@ GameObject:
   - component: {fileID: 1831792789}
   - component: {fileID: 1831792790}
   - component: {fileID: 1831792791}
+  - component: {fileID: 1831792792}
   m_Layer: 0
   m_Name: player
   m_TagString: Player
@@ -3346,7 +3425,7 @@ SpriteRenderer:
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 4f5b90861cf9ae446a54e983974fb3c4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1, y: 1}
@@ -3423,6 +3502,15 @@ MonoBehaviour:
   expbar: {fileID: 1241886795}
   expfront: {fileID: 2015560289}
   stageTimeLimit: 180
+  HpUp: {fileID: 0}
+  Recovery: {fileID: 0}
+  DamageUp: {fileID: 0}
+  SpeedUp: {fileID: 0}
+  TowerAttackSpeed: {fileID: 0}
+  TowerDamage: {fileID: 0}
+  TowerGiSpeed: {fileID: 0}
+  TowerHpRecovery: {fileID: 0}
+  levelUpPanel: {fileID: 0}
 --- !u!58 &1831792791
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -3458,6 +3546,27 @@ CircleCollider2D:
   m_Offset: {x: 0, y: -0.5}
   serializedVersion: 2
   m_Radius: 1
+--- !u!95 &1831792792
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1831792786}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 87d915d5bb2253743b1a983388c005ef, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1838390083
 GameObject:
   m_ObjectHideFlags: 0
@@ -3502,6 +3611,7 @@ GameObject:
   - component: {fileID: 1855798598}
   - component: {fileID: 1855798597}
   - component: {fileID: 1855798596}
+  - component: {fileID: 1855798601}
   m_Layer: 0
   m_Name: tower4
   m_TagString: tower
@@ -3527,6 +3637,10 @@ MonoBehaviour:
   towergiPrefab: {fileID: 1506026446742903462, guid: d5370d119b3f32c488fc14fce808a49d, type: 3}
   attackRange: 10
   fireRate: 0.5
+  TowerAttackSpeed: {fileID: 0}
+  TowerDamage: {fileID: 0}
+  TowerGiSpeed: {fileID: 0}
+  TowerHpRecovery: {fileID: 0}
 --- !u!50 &1855798597
 Rigidbody2D:
   serializedVersion: 4
@@ -3667,6 +3781,27 @@ Transform:
   - {fileID: 8493191}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1855798601
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1855798595}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7daadda3701a5114f89de7b9c2541ec1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1888564822
 GameObject:
   m_ObjectHideFlags: 0
