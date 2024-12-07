@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
+using System.Linq;
 
 public class PlayerController : MonoBehaviour
 {
@@ -30,7 +32,8 @@ public class PlayerController : MonoBehaviour
     public float stageTimeLimit = 180f; // 스테이지 제한 시간 (초 단위)
     private float elapsedTime = 0f;    // 경과 시간
 
-    public Button HpUp, Recovery, DamageUp; // 레벨업 선택지 버튼
+    public Button HpUp, Recovery, DamageUp, SpeedUp; // 레벨업 선택지 버튼(플레이어)
+    public Button TowerAttackSpeed, TowerDamage, TowerGiSpeed, TowerHpRecovery; // 레벨업 선택지 버튼(타워)
     public GameObject levelUpPanel; // 레벨업 선택지를 담은 패널
 
     Vector2 minBounds = new Vector2(-57, -32); //맵의 크기
@@ -169,24 +172,37 @@ public class PlayerController : MonoBehaviour
 
     private void ShowLevelUpPanel()
     {
-
+        // 8개의 옵션 배열
         string[] options = new string[]
         {
         "타워 투사체 속도 up", "플레이어 이동 속도 up", "플레이어 최대 체력 up",
         "타워 투사체 발사 속도 up", "플레이어 HP 회복", "HP 낮은 타워 회복",
-        "플레이어 공격력 up", "타워 공격력 up"
+        "플레이어 공격력 up", "타워 공격력 up", "타워 기속도 up", "타워 HP up"
         };
 
-        int[] randomIndexes = GetRandomIndexes(options.Length, 3);
-        HpUp.GetComponentInChildren<Text>().text = options[randomIndexes[0]];
-        Recovery.GetComponentInChildren<Text>().text = options[randomIndexes[1]];
-        DamageUp.GetComponentInChildren<Text>().text = options[randomIndexes[2]];
+        int[] randomIndexes = GetRandomIndexes(options.Length, 8); // 버튼 8개 랜덤 선택
 
-        // 버튼에 리스너 추가
+        HpUp.GetComponentInChildren<TextMeshProUGUI>().text = options[randomIndexes[0]];
+        Recovery.GetComponentInChildren<TextMeshProUGUI>().text = options[randomIndexes[1]];
+        DamageUp.GetComponentInChildren<TextMeshProUGUI>().text = options[randomIndexes[2]];
+        SpeedUp.GetComponentInChildren<TextMeshProUGUI>().text = options[randomIndexes[3]];
+        TowerAttackSpeed.GetComponentInChildren<TextMeshProUGUI>().text = options[randomIndexes[4]];
+        TowerDamage.GetComponentInChildren<TextMeshProUGUI>().text = options[randomIndexes[5]];
+        TowerGiSpeed.GetComponentInChildren<TextMeshProUGUI>().text = options[randomIndexes[6]];
+        TowerHpRecovery.GetComponentInChildren<TextMeshProUGUI>().text = options[randomIndexes[7]];
+
+        
         HpUp.onClick.AddListener(() => ApplyLevelUpEffect(randomIndexes[0]));
         Recovery.onClick.AddListener(() => ApplyLevelUpEffect(randomIndexes[1]));
         DamageUp.onClick.AddListener(() => ApplyLevelUpEffect(randomIndexes[2]));
+        SpeedUp.onClick.AddListener(() => ApplyLevelUpEffect(randomIndexes[3]));
+        TowerAttackSpeed.onClick.AddListener(() => ApplyLevelUpEffect(randomIndexes[4]));
+        TowerDamage.onClick.AddListener(() => ApplyLevelUpEffect(randomIndexes[5]));
+        TowerGiSpeed.onClick.AddListener(() => ApplyLevelUpEffect(randomIndexes[6]));
+        TowerHpRecovery.onClick.AddListener(() => ApplyLevelUpEffect(randomIndexes[7]));
+        
 
+        PositionButtonsRandomly(); // 버튼 위치 랜덤으로 배치
         levelUpPanel.SetActive(true);
     }
 
@@ -213,11 +229,11 @@ public class PlayerController : MonoBehaviour
                 Debug.Log("타워 투사체 속도 증가!");
                 break;
             case 1: // 플레이어 이동 속도 up
-                speed += 2.0f;
+                //speed += 2.0f;
                 Debug.Log("플레이어 이동 속도 증가!");
                 break;
             case 2: // 플레이어 최대 체력 up
-                maxHp += 5.0f;
+                //maxHp += 5.0f;
                 Debug.Log("플레이어 최대 체력 증가!");
                 break;
             case 3: // 타워 투사체 발사 속도 up
@@ -225,7 +241,7 @@ public class PlayerController : MonoBehaviour
                 Debug.Log("타워 투사체 발사 속도 증가!");
                 break;
             case 4: // 플레이어 HP 회복
-                currHp = maxHp;
+                //currHp = maxHp;
                 Debug.Log("플레이어 HP 회복!");
                 break;
             case 5: // HP 낮은 타워 회복
@@ -242,7 +258,7 @@ public class PlayerController : MonoBehaviour
         // 레벨업 패널 숨기고 게임 재개
         HideLevelUpPanel();
     }
-
+    
     private int[] GetRandomIndexes(int range, int count)
     {
         System.Random rand = new System.Random();
@@ -252,6 +268,69 @@ public class PlayerController : MonoBehaviour
             indexes.Add(rand.Next(range));
         }
         return new List<int>(indexes).ToArray();
+    }
+
+    private void PositionButtonsRandomly()
+    {
+        // 카메라의 중심 위치를 가져옵니다.
+        Vector3 cameraCenter = Camera.main.transform.position;
+
+        // 버튼이 배치될 위치들
+        Vector3[] positions = new Vector3[]
+        {
+            new Vector3(cameraCenter.x - 15, cameraCenter.y, 5),
+            new Vector3(cameraCenter.x, cameraCenter.y, 5),
+            new Vector3(cameraCenter.x + 15, cameraCenter.y, 5)
+        };
+
+        // 버튼 배열
+        Button[] buttons = new Button[]
+        {
+            HpUp,
+            Recovery,
+            DamageUp,
+            SpeedUp,
+            TowerAttackSpeed,
+            TowerDamage,
+            TowerGiSpeed,
+            TowerHpRecovery
+        };
+
+        // 버튼 배열 크기에 맞춰서 랜덤으로 3개만 선택
+        System.Random rand = new System.Random();
+        List<int> selectedIndexes = new List<int>();
+        while (selectedIndexes.Count < 3)
+        {
+            int randomIndex = rand.Next(buttons.Length);
+            if (!selectedIndexes.Contains(randomIndex)) // 중복 방지
+            {
+                selectedIndexes.Add(randomIndex);
+            }
+        }
+
+        // 선택된 버튼 텍스트 업데이트
+        string[] options = new string[]
+        {
+        "타워 투사체 속도 up", "플레이어 이동 속도 up", "플레이어 최대 체력 up",
+        "타워 투사체 발사 속도 up", "플레이어 HP 회복", "HP 낮은 타워 회복",
+        "플레이어 공격력 up", "타워 공격력 up"
+        };
+
+        // 각 버튼에 해당하는 텍스트 설정
+        for (int i = 0; i < selectedIndexes.Count; i++)
+        {
+            buttons[selectedIndexes[i]].GetComponentInChildren<TextMeshProUGUI>().text = options[i];
+        }
+
+        // 위치 배열을 랜덤하게 섞기 위해 List로 변환
+        List<Vector3> positionList = new List<Vector3>(positions);
+        positionList = positionList.OrderBy(x => rand.Next()).ToList(); // 랜덤 섞기
+
+        // 선택된 버튼들에 랜덤 위치 할당
+        for (int i = 0; i < selectedIndexes.Count; i++)
+        {
+            buttons[selectedIndexes[i]].transform.position = positionList[i];
+        }
     }
 
     void FixedUpdate() //Update함수는 프레임이 일정하지 않기 때문에 rigidbody를 다루는 코드를 설정하는 함수
