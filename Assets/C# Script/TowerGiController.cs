@@ -1,10 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using TMPro;
+using System.Linq;
 
 public class TowerGiController : MonoBehaviour
 {
-    public float speed = 10f; // Gi 속도
+    public Button TowerAttackSpeed, TowerDamage, TowerGiSpeed, TowerHpRecovery; // 레벨업 선택지 버튼(타워)
+
+    private float speed;
     private float lifetime = 3f;
     private float spawnTime;
     private GameObject target;
@@ -49,6 +55,12 @@ public class TowerGiController : MonoBehaviour
     {
         this.target = target;
     }
+    //속도 설정
+    public void SetSpeed(float speed)
+    {
+        this.speed = speed;
+    }
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

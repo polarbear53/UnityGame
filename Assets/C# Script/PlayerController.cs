@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -11,10 +10,11 @@ public class PlayerController : MonoBehaviour
     Vector3 dir; //마우스 방향벡터를 저장할 변수
 
     public float speed = 10.0f; // 플레이어의 스피드를 조절하는 변수
-    private float currHp; //플레이어의 현재 hp
+    public float currHp; //플레이어의 현재 hp
     public float maxHp = 10f; //플레이어의 최대 체력
     public float giSpeed = 30.0f; //기의 속도
     public float ShootRate = 0.5f; //다음 기를 쏘기까지 걸리는 딜레이 시간
+    public float giDamage = 1f; //기의 공격력
     private float nextShootTime = 0f; //시간 계산
 
     public GameObject giPrefab; //쏠 기
@@ -29,9 +29,6 @@ public class PlayerController : MonoBehaviour
 
     public float stageTimeLimit = 180f; // 스테이지 제한 시간 (초 단위)
     private float elapsedTime = 0f;    // 경과 시간
-
-    public Button HpUp, Recovery, DamageUp; // 레벨업 선택지 버튼
-    public GameObject levelUpPanel; // 레벨업 선택지를 담은 패널
 
     Vector2 minBounds = new Vector2(-57, -32); //맵의 크기
     Vector2 maxBounds = new Vector2(57, 32);
@@ -48,8 +45,6 @@ public class PlayerController : MonoBehaviour
         currExp = minExp; // 최소치 Exp로 설정
 
         UpdateExpBar(); // 경험치바 초기화
-
-        HideLevelUpPanel(); // 초기에는 레벨업 패널 숨기기
     }
 
     void Update()
@@ -161,97 +156,21 @@ public class PlayerController : MonoBehaviour
         // 레벨업 로직
         Debug.Log("Level Up!");
 
+        UpdateExpBar(); // 경험치바 업데이트
+
         // 게임 일시정지
         Time.timeScale = 0;
 
-        ShowLevelUpPanel();
-    }
-
-    private void ShowLevelUpPanel()
+        string[] options = new string[] // 레벨업 옵션
     {
+        "플레이어 최대 체력 up", "플레이어 HP 회복", "플레이어 공격력 up",
+        "플레이어 이동 속도 up", "타워 투사체 발사 속도 up", "타워 공격력 up",
+        "타워 투사체 속도 up", "타워 회복"
+    };
 
-        string[] options = new string[]
-        {
-        "타워 투사체 속도 up", "플레이어 이동 속도 up", "플레이어 최대 체력 up",
-        "타워 투사체 발사 속도 up", "플레이어 HP 회복", "HP 낮은 타워 회복",
-        "플레이어 공격력 up", "타워 공격력 up"
-        };
+        int[] randomIndexes = UiManagerController.instance.GetRandomIndexes(options.Length, options.Length);
 
-        int[] randomIndexes = GetRandomIndexes(options.Length, 3);
-        HpUp.GetComponentInChildren<Text>().text = options[randomIndexes[0]];
-        Recovery.GetComponentInChildren<Text>().text = options[randomIndexes[1]];
-        DamageUp.GetComponentInChildren<Text>().text = options[randomIndexes[2]];
-
-        // 버튼에 리스너 추가
-        HpUp.onClick.AddListener(() => ApplyLevelUpEffect(randomIndexes[0]));
-        Recovery.onClick.AddListener(() => ApplyLevelUpEffect(randomIndexes[1]));
-        DamageUp.onClick.AddListener(() => ApplyLevelUpEffect(randomIndexes[2]));
-
-        levelUpPanel.SetActive(true);
-    }
-
-    private void HideLevelUpPanel()
-    {
-        // 레벨업 패널에서 버튼 이벤트 리스너 제거
-        HpUp.onClick.RemoveAllListeners();
-        Recovery.onClick.RemoveAllListeners();
-        DamageUp.onClick.RemoveAllListeners();
-
-        // 레벨업 패널 숨기기
-        levelUpPanel.SetActive(false);
-
-        // 게임 재개
-        Time.timeScale = 1;
-        isLevelingUp = false; // 레벨업 중이 아님
-    }
-
-    private void ApplyLevelUpEffect(int optionIndex)
-    {
-        switch (optionIndex)
-        {
-            case 0: // 타워 투사체 속도 up
-                Debug.Log("타워 투사체 속도 증가!");
-                break;
-            case 1: // 플레이어 이동 속도 up
-                speed += 2.0f;
-                Debug.Log("플레이어 이동 속도 증가!");
-                break;
-            case 2: // 플레이어 최대 체력 up
-                maxHp += 5.0f;
-                Debug.Log("플레이어 최대 체력 증가!");
-                break;
-            case 3: // 타워 투사체 발사 속도 up
-                ShootRate -= 0.1f;
-                Debug.Log("타워 투사체 발사 속도 증가!");
-                break;
-            case 4: // 플레이어 HP 회복
-                currHp = maxHp;
-                Debug.Log("플레이어 HP 회복!");
-                break;
-            case 5: // HP 낮은 타워 회복
-                Debug.Log("HP 낮은 타워 회복!");
-                break;
-            case 6: // 플레이어 공격력 up
-                Debug.Log("플레이어 공격력 증가!");
-                break;
-            case 7: // 타워 공격력 up
-                Debug.Log("타워 공격력 증가!");
-                break;
-        }
-
-        // 레벨업 패널 숨기고 게임 재개
-        HideLevelUpPanel();
-    }
-
-    private int[] GetRandomIndexes(int range, int count)
-    {
-        System.Random rand = new System.Random();
-        HashSet<int> indexes = new HashSet<int>();
-        while (indexes.Count < count)
-        {
-            indexes.Add(rand.Next(range));
-        }
-        return new List<int>(indexes).ToArray();
+        UiManagerController.instance.ShowLevelUpPanel(options, randomIndexes); //패널 보여주기
     }
 
     void FixedUpdate() //Update함수는 프레임이 일정하지 않기 때문에 rigidbody를 다루는 코드를 설정하는 함수

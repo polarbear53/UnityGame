@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1809006243790435502}
   m_Layer: 0
   m_Name: towergiPrefab
-  m_TagString: gi
+  m_TagString: towergi
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -126,6 +126,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea385568d27391242a2807e27075891c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TowerAttackSpeed: {fileID: 0}
+  TowerDamage: {fileID: 0}
+  TowerGiSpeed: {fileID: 0}
+  TowerHpRecovery: {fileID: 0}
   speed: 30
 --- !u!58 &1809006243790435502
 CircleCollider2D:

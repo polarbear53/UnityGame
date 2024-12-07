@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using TMPro;
+using System.Linq;
 
 public class TowerController : MonoBehaviour
 {
     Rigidbody2D rigid2D; // 물리 이동을 위한 변수
 
-    private float currHp; // 타워의 현재 hp
+    public float currHp; // 타워의 현재 hp
     public float maxHp = 20f; // 타워의 최대 체력
 
     public GameObject hpbar; // 체력바를 보이거나 보이지 않게 하기 위해
@@ -15,6 +18,8 @@ public class TowerController : MonoBehaviour
     public GameObject towergiPrefab; // 발사할 기(투사체)
     public float attackRange = 10f; // 공격 범위
     public float fireRate = 3f; // 발사 속도 (1초에 10번 발사)
+    public float towerdamage = 1f; // 공격력
+    public float projectileSpeed = 5f; // 기(투사체)의 속도
 
     private float fireCooldown; // 발사 쿨다운 시간
 
@@ -191,6 +196,7 @@ public class TowerController : MonoBehaviour
         if (projectileScript != null)
         {
             projectileScript.SetTarget(target);
+            projectileScript.SetSpeed(projectileSpeed); //투사체 속도 설정
         }
     }
 
@@ -198,27 +204,27 @@ public class TowerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("eat"))
         {
-            TakeDamage(1.0f, collision.gameObject);
+            TakeDamage(1f, collision.gameObject);
         }
         else if (collision.gameObject.CompareTag("gohome"))
         {
-            TakeDamage(1.0f, collision.gameObject);
+            TakeDamage(1f, collision.gameObject);
         }
         else if (collision.gameObject.CompareTag("what"))
         {
-            TakeDamage(2.0f, collision.gameObject);
+            TakeDamage(2f, collision.gameObject);
         }
         else if (collision.gameObject.CompareTag("no"))
         {
-            TakeDamage(3.0f, collision.gameObject);
+            TakeDamage(3f, collision.gameObject);
         }
         else if (collision.gameObject.CompareTag("pressure"))
         {
-            TakeDamage(5.0f, collision.gameObject);
+            TakeDamage(5f, collision.gameObject);
         }
     }
 
-    void TakeDamage(float damage, GameObject monster)
+    void TakeDamage(float damage, GameObject monster) //몬스터와 부딪혔을 떄 체력 깎기
     {
         if (currHp > 0)
         {

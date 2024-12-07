@@ -12,6 +12,7 @@ TagManager:
   - no
   - pressure
   - exp
+  - towergi
   layers:
   - Default
   - TransparentFX
