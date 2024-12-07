@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using TMPro;
+using System.Linq;
 
 public class TowerController : MonoBehaviour
 {
@@ -15,6 +18,8 @@ public class TowerController : MonoBehaviour
     public GameObject towergiPrefab; // 발사할 기(투사체)
     public float attackRange = 10f; // 공격 범위
     public float fireRate = 3f; // 발사 속도 (1초에 10번 발사)
+
+    public Button TowerAttackSpeed, TowerDamage, TowerGiSpeed, TowerHpRecovery; // 레벨업 선택지 버튼(타워)
 
     private float fireCooldown; // 발사 쿨다운 시간
 

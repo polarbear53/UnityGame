@@ -2327,6 +2327,10 @@ MonoBehaviour:
   towergiPrefab: {fileID: 1506026446742903462, guid: d5370d119b3f32c488fc14fce808a49d, type: 3}
   attackRange: 30
   fireRate: 2
+  TowerAttackSpeed: {fileID: 1314119318}
+  TowerDamage: {fileID: 1010638863}
+  TowerGiSpeed: {fileID: 402648320}
+  TowerHpRecovery: {fileID: 918214332}
 --- !u!1 &982144814
 GameObject:
   m_ObjectHideFlags: 0

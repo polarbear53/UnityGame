@@ -164,6 +164,8 @@ public class PlayerController : MonoBehaviour
         // 레벨업 로직
         Debug.Log("Level Up!");
 
+        UpdateExpBar(); // 경험치바 업데이트
+
         // 게임 일시정지
         Time.timeScale = 0;
 
@@ -192,14 +194,14 @@ public class PlayerController : MonoBehaviour
         TowerHpRecovery.GetComponentInChildren<TextMeshProUGUI>().text = options[randomIndexes[7]];
 
         
-        HpUp.onClick.AddListener(() => ApplyLevelUpEffect(randomIndexes[0]));
-        Recovery.onClick.AddListener(() => ApplyLevelUpEffect(randomIndexes[1]));
-        DamageUp.onClick.AddListener(() => ApplyLevelUpEffect(randomIndexes[2]));
-        SpeedUp.onClick.AddListener(() => ApplyLevelUpEffect(randomIndexes[3]));
-        TowerAttackSpeed.onClick.AddListener(() => ApplyLevelUpEffect(randomIndexes[4]));
-        TowerDamage.onClick.AddListener(() => ApplyLevelUpEffect(randomIndexes[5]));
-        TowerGiSpeed.onClick.AddListener(() => ApplyLevelUpEffect(randomIndexes[6]));
-        TowerHpRecovery.onClick.AddListener(() => ApplyLevelUpEffect(randomIndexes[7]));
+        HpUp.onClick.AddListener(() => ApplyLevelUpEffect(0));
+        Recovery.onClick.AddListener(() => ApplyLevelUpEffect(1));
+        DamageUp.onClick.AddListener(() => ApplyLevelUpEffect(2));
+        SpeedUp.onClick.AddListener(() => ApplyLevelUpEffect(3));
+        TowerAttackSpeed.onClick.AddListener(() => ApplyLevelUpEffect(4));
+        TowerDamage.onClick.AddListener(() => ApplyLevelUpEffect(5));
+        TowerGiSpeed.onClick.AddListener(() => ApplyLevelUpEffect(6));
+        TowerHpRecovery.onClick.AddListener(() => ApplyLevelUpEffect(7));
         
 
         PositionButtonsRandomly(); // 버튼 위치 랜덤으로 배치
@@ -225,33 +227,33 @@ public class PlayerController : MonoBehaviour
     {
         switch (optionIndex)
         {
-            case 0: // 타워 투사체 속도 up
-                Debug.Log("타워 투사체 속도 증가!");
+            case 0: // 플레이어 최대 체력 up
+                //maxHp += 5;
+                Debug.Log("플레이어 최대 체력 증가!");
                 break;
-            case 1: // 플레이어 이동 속도 up
+            case 1: // 플레이어 HP 회복
+                currHp = maxHp;
+                hpfront.localScale = new Vector3(currHp / maxHp, 1.0f, 1.0f);
+                Debug.Log("플레이어 HP 회복!");
+                break;
+            case 2: // 플레이어 공격력 up
+                Debug.Log("플레이어 공격력 증가!");
+                break;
+            case 3: // 플레이어 이동 속도 up
                 //speed += 2.0f;
                 Debug.Log("플레이어 이동 속도 증가!");
                 break;
-            case 2: // 플레이어 최대 체력 up
-                //maxHp += 5.0f;
-                Debug.Log("플레이어 최대 체력 증가!");
-                break;
-            case 3: // 타워 투사체 발사 속도 up
-                ShootRate -= 0.1f;
+            case 4: // 타워 투사체 발사 속도 up
                 Debug.Log("타워 투사체 발사 속도 증가!");
                 break;
-            case 4: // 플레이어 HP 회복
-                //currHp = maxHp;
-                Debug.Log("플레이어 HP 회복!");
-                break;
-            case 5: // HP 낮은 타워 회복
-                Debug.Log("HP 낮은 타워 회복!");
-                break;
-            case 6: // 플레이어 공격력 up
-                Debug.Log("플레이어 공격력 증가!");
-                break;
-            case 7: // 타워 공격력 up
+            case 5: // 타워 공격력 up
                 Debug.Log("타워 공격력 증가!");
+                break;
+            case 6: // 타워 투사체 속도 up
+                Debug.Log("타워 투사체 속도 증가!");
+                break;
+            case 7: // HP 낮은 타워 회복
+                Debug.Log("HP 낮은 타워 회복!");
                 break;
         }
 
