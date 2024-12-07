@@ -1288,8 +1288,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\n\n\n\n\n\n\nTower\n\n\n\n\nUp \n\nAttack Speed"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 0459419ac4594f546b4044fa60c7df4c, type: 2}
+  m_sharedMaterial: {fileID: -7025501813697229110, guid: 0459419ac4594f546b4044fa60c7df4c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1568,8 +1568,8 @@ MonoBehaviour:
 
     Speed '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 0459419ac4594f546b4044fa60c7df4c, type: 2}
+  m_sharedMaterial: {fileID: -7025501813697229110, guid: 0459419ac4594f546b4044fa60c7df4c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2321,16 +2321,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa0e783ad786e00448283a98d6272b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currHp: 0
   maxHp: 20
   hpbar: {fileID: 2142826}
   hpfront: {fileID: 246694746}
   towergiPrefab: {fileID: 1506026446742903462, guid: d5370d119b3f32c488fc14fce808a49d, type: 3}
   attackRange: 30
   fireRate: 2
-  TowerAttackSpeed: {fileID: 1314119318}
-  TowerDamage: {fileID: 1010638863}
-  TowerGiSpeed: {fileID: 402648320}
-  TowerHpRecovery: {fileID: 918214332}
+  towerdamage: 1
+  projectileSpeed: 5
 --- !u!1 &982144814
 GameObject:
   m_ObjectHideFlags: 0
@@ -3295,6 +3294,61 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1167550462}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1388575713
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1388575715}
+  - component: {fileID: 1388575714}
+  m_Layer: 0
+  m_Name: UiManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1388575714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1388575713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f28dd9771df2d448831623cf38404bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelUpPanel: {fileID: 1284406984}
+  HpUp: {fileID: 1294922540}
+  Recovery: {fileID: 1353001728}
+  DamageUp: {fileID: 1010532919}
+  SpeedUp: {fileID: 123410477}
+  TowerAttackSpeed: {fileID: 1314119318}
+  TowerDamage: {fileID: 1010638863}
+  TowerGiSpeed: {fileID: 402648320}
+  TowerHpRecovery: {fileID: 918214332}
+  playerController: {fileID: 0}
+  towerController: {fileID: 0}
+--- !u!4 &1388575715
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1388575713}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.20528618, y: -1.2290117, z: -0.17114165}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1513355568
 GameObject:
   m_ObjectHideFlags: 0
@@ -3446,8 +3500,8 @@ MonoBehaviour:
 
     Damage'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 0459419ac4594f546b4044fa60c7df4c, type: 2}
+  m_sharedMaterial: {fileID: -7025501813697229110, guid: 0459419ac4594f546b4044fa60c7df4c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3747,8 +3801,8 @@ MonoBehaviour:
 
     Recovery'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 0459419ac4594f546b4044fa60c7df4c, type: 2}
+  m_sharedMaterial: {fileID: -7025501813697229110, guid: 0459419ac4594f546b4044fa60c7df4c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4048,8 +4102,8 @@ MonoBehaviour:
 
     Gi Speed'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 0459419ac4594f546b4044fa60c7df4c, type: 2}
+  m_sharedMaterial: {fileID: -7025501813697229110, guid: 0459419ac4594f546b4044fa60c7df4c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4191,8 +4245,8 @@ MonoBehaviour:
 
     Hp '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 0459419ac4594f546b4044fa60c7df4c, type: 2}
+  m_sharedMaterial: {fileID: -7025501813697229110, guid: 0459419ac4594f546b4044fa60c7df4c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4395,9 +4449,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
+  currHp: 0
   maxHp: 10
   giSpeed: 30
   ShootRate: 0
+  giDamage: 1
   giPrefab: {fileID: 923976885994406078, guid: 52daac077dd62864689ff5666e900138, type: 3}
   hpbar: {fileID: 502682733}
   hpfront: {fileID: 1315034711}
@@ -4406,15 +4462,6 @@ MonoBehaviour:
   expbar: {fileID: 1298106040}
   expfront: {fileID: 1513355569}
   stageTimeLimit: 180
-  HpUp: {fileID: 1294922540}
-  Recovery: {fileID: 1353001728}
-  DamageUp: {fileID: 1010532919}
-  SpeedUp: {fileID: 123410477}
-  TowerAttackSpeed: {fileID: 1314119318}
-  TowerDamage: {fileID: 1010638863}
-  TowerGiSpeed: {fileID: 402648320}
-  TowerHpRecovery: {fileID: 918214332}
-  levelUpPanel: {fileID: 1284406984}
 --- !u!58 &1831792791
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -4757,11 +4804,11 @@ PrefabInstance:
     - target: {fileID: 6876763185554839570, guid: 124d4b297aa1ab944ab3db60c07d1c3e, type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
+      objectReference: {fileID: 11400000, guid: 0459419ac4594f546b4044fa60c7df4c, type: 2}
     - target: {fileID: 6876763185554839570, guid: 124d4b297aa1ab944ab3db60c07d1c3e, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
+      objectReference: {fileID: -7025501813697229110, guid: 0459419ac4594f546b4044fa60c7df4c, type: 2}
     - target: {fileID: 6876763185554839570, guid: 124d4b297aa1ab944ab3db60c07d1c3e, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 0
@@ -4810,11 +4857,11 @@ PrefabInstance:
     - target: {fileID: 8213490788214229315, guid: 124d4b297aa1ab944ab3db60c07d1c3e, type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
+      objectReference: {fileID: 11400000, guid: 0459419ac4594f546b4044fa60c7df4c, type: 2}
     - target: {fileID: 8213490788214229315, guid: 124d4b297aa1ab944ab3db60c07d1c3e, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
+      objectReference: {fileID: -7025501813697229110, guid: 0459419ac4594f546b4044fa60c7df4c, type: 2}
     - target: {fileID: 8213490788214229315, guid: 124d4b297aa1ab944ab3db60c07d1c3e, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 0
@@ -4934,3 +4981,4 @@ SceneRoots:
   - {fileID: 928724646}
   - {fileID: 1167550462}
   - {fileID: 1871790293}
+  - {fileID: 1388575715}

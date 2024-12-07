@@ -17,6 +17,9 @@ public class MonsterController : MonoBehaviour
     public RectTransform hpfront; // 체력바의 스케일을 조정해 닳게하기 위해
     public GameObject expPrefab; // 경험치 오브젝트
 
+    PlayerController playerController; // 플레이어 컨트롤러 변수
+    TowerController towerController; // 타워 컨트롤러 변수
+
     void Start()
     {
         this.player = GameObject.Find("player"); //플레이어의 찾기
@@ -24,6 +27,10 @@ public class MonsterController : MonoBehaviour
         this.tower2 = GameObject.Find("tower2"); //타워2 찾기 (없을 수도 있음)
         this.tower3 = GameObject.Find("tower3"); //타워3 찾기 (없을 수도 있음)
         this.tower4 = GameObject.Find("tower4"); //타워3 찾기 (없을 수도 있음)
+
+        playerController = player.GetComponent<PlayerController>(); //플레이어 컨트롤러 가져오기
+        towerController = tower.GetComponent<TowerController>(); //타워 컨트롤러 가져오기
+
         InitMonster(); //몬스터 초기화
 
     }
@@ -163,7 +170,18 @@ public class MonsterController : MonoBehaviour
             hpbar.SetActive(true); //체력바 보이기
             if (currHp > 0)
             { //현재 체력이 남아있다면
-                currHp -= 1.0f; //현재 체력 갂기
+                currHp -= playerController.giDamage; //현재 체력을 플레이어 공격력만큼 갂기
+                hpfront.localScale = new Vector3(currHp / maxHp, 1.0f, 1.0f); // 현재 체력을 최대 체력으로 나누어서 hp조절
+
+                PoolManager.instance.ReturnPreFab(collision.gameObject); //충돌한 기는 비활성화(풀링)
+
+            }
+        }
+        else if (collision.gameObject.CompareTag("towergi")) //타워기 태그를 가진 오브젝트와 부딪히면
+        {
+            if (currHp > 0)
+            { //현재 체력이 남아있다면
+                currHp -= towerController.towerdamage; //현재 체력을 타워 공격력만큼 갂기
                 hpfront.localScale = new Vector3(currHp / maxHp, 1.0f, 1.0f); // 현재 체력을 최대 체력으로 나누어서 hp조절
 
                 PoolManager.instance.ReturnPreFab(collision.gameObject); //충돌한 기는 비활성화(풀링)

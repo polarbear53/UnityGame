@@ -10,7 +10,7 @@ public class TowerGiController : MonoBehaviour
 {
     public Button TowerAttackSpeed, TowerDamage, TowerGiSpeed, TowerHpRecovery; // 레벨업 선택지 버튼(타워)
 
-    public float speed = 10f; // Gi 속도
+    private float speed;
     private float lifetime = 3f;
     private float spawnTime;
     private GameObject target;
@@ -55,6 +55,12 @@ public class TowerGiController : MonoBehaviour
     {
         this.target = target;
     }
+    //속도 설정
+    public void SetSpeed(float speed)
+    {
+        this.speed = speed;
+    }
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
