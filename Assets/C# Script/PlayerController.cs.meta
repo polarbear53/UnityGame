@@ -3,7 +3,16 @@ guid: 4c032e88a1a43244fb9f433a2a0bb77f
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - giPrefab: {instanceID: 0}
+  - hpbar: {instanceID: 0}
+  - hpfront: {instanceID: 0}
+  - expbar: {instanceID: 0}
+  - expfront: {instanceID: 0}
+  - HpUp: {instanceID: 0}
+  - Recovery: {instanceID: 0}
+  - DamageUp: {instanceID: 0}
+  - levelUpPanel: {fileID: 296092717298789289, guid: 124d4b297aa1ab944ab3db60c07d1c3e, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

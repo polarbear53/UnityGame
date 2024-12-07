@@ -30,22 +30,32 @@ public class PlayerController : MonoBehaviour
     public float stageTimeLimit = 180f; // 스테이지 제한 시간 (초 단위)
     private float elapsedTime = 0f;    // 경과 시간
 
+    public Button HpUp, Recovery, DamageUp; // 레벨업 선택지 버튼
+    public GameObject levelUpPanel; // 레벨업 선택지를 담은 패널
+
     Vector2 minBounds = new Vector2(-57, -32); //맵의 크기
     Vector2 maxBounds = new Vector2(57, 32);
     Vector2 startPos = new Vector2(0, -2); //시작 위치 조정
 
+    private bool isLevelingUp = false;
+
     void Start()
     {
+
         rigid2D = GetComponent<Rigidbody2D>(); //rigidbody 컴포넌트 가져오기
         transform.position = startPos; //시작지점에서 시작
         currHp = maxHp; // 최대 체력만큼 현재 체력 설정
         currExp = minExp; // 최소치 Exp로 설정
 
         UpdateExpBar(); // 경험치바 초기화
+
+        HideLevelUpPanel(); // 초기에는 레벨업 패널 숨기기
     }
 
     void Update()
     {
+        if (isLevelingUp) return; // 레벨업 중에는 조작 금지
+
         if (Time.timeScale > 0) // 게임이 일시정지 상태가 아닐 때만 타이머 작동
         {
             elapsedTime += Time.deltaTime;
@@ -150,13 +160,106 @@ public class PlayerController : MonoBehaviour
     {
         // 레벨업 로직
         Debug.Log("Level Up!");
+
+        // 게임 일시정지
+        Time.timeScale = 0;
+
+        ShowLevelUpPanel();
+    }
+
+    private void ShowLevelUpPanel()
+    {
+
+        string[] options = new string[]
+        {
+        "타워 투사체 속도 up", "플레이어 이동 속도 up", "플레이어 최대 체력 up",
+        "타워 투사체 발사 속도 up", "플레이어 HP 회복", "HP 낮은 타워 회복",
+        "플레이어 공격력 up", "타워 공격력 up"
+        };
+
+        int[] randomIndexes = GetRandomIndexes(options.Length, 3);
+        HpUp.GetComponentInChildren<Text>().text = options[randomIndexes[0]];
+        Recovery.GetComponentInChildren<Text>().text = options[randomIndexes[1]];
+        DamageUp.GetComponentInChildren<Text>().text = options[randomIndexes[2]];
+
+        // 버튼에 리스너 추가
+        HpUp.onClick.AddListener(() => ApplyLevelUpEffect(randomIndexes[0]));
+        Recovery.onClick.AddListener(() => ApplyLevelUpEffect(randomIndexes[1]));
+        DamageUp.onClick.AddListener(() => ApplyLevelUpEffect(randomIndexes[2]));
+
+        levelUpPanel.SetActive(true);
+    }
+
+    private void HideLevelUpPanel()
+    {
+        // 레벨업 패널에서 버튼 이벤트 리스너 제거
+        HpUp.onClick.RemoveAllListeners();
+        Recovery.onClick.RemoveAllListeners();
+        DamageUp.onClick.RemoveAllListeners();
+
+        // 레벨업 패널 숨기기
+        levelUpPanel.SetActive(false);
+
+        // 게임 재개
+        Time.timeScale = 1;
+        isLevelingUp = false; // 레벨업 중이 아님
+    }
+
+    private void ApplyLevelUpEffect(int optionIndex)
+    {
+        switch (optionIndex)
+        {
+            case 0: // 타워 투사체 속도 up
+                Debug.Log("타워 투사체 속도 증가!");
+                break;
+            case 1: // 플레이어 이동 속도 up
+                speed += 2.0f;
+                Debug.Log("플레이어 이동 속도 증가!");
+                break;
+            case 2: // 플레이어 최대 체력 up
+                maxHp += 5.0f;
+                Debug.Log("플레이어 최대 체력 증가!");
+                break;
+            case 3: // 타워 투사체 발사 속도 up
+                ShootRate -= 0.1f;
+                Debug.Log("타워 투사체 발사 속도 증가!");
+                break;
+            case 4: // 플레이어 HP 회복
+                currHp = maxHp;
+                Debug.Log("플레이어 HP 회복!");
+                break;
+            case 5: // HP 낮은 타워 회복
+                Debug.Log("HP 낮은 타워 회복!");
+                break;
+            case 6: // 플레이어 공격력 up
+                Debug.Log("플레이어 공격력 증가!");
+                break;
+            case 7: // 타워 공격력 up
+                Debug.Log("타워 공격력 증가!");
+                break;
+        }
+
+        // 레벨업 패널 숨기고 게임 재개
+        HideLevelUpPanel();
+    }
+
+    private int[] GetRandomIndexes(int range, int count)
+    {
+        System.Random rand = new System.Random();
+        HashSet<int> indexes = new HashSet<int>();
+        while (indexes.Count < count)
+        {
+            indexes.Add(rand.Next(range));
+        }
+        return new List<int>(indexes).ToArray();
     }
 
     void FixedUpdate() //Update함수는 프레임이 일정하지 않기 때문에 rigidbody를 다루는 코드를 설정하는 함수
     {
-
-        rigid2D.MovePosition(rigid2D.position + moveVelocity * Time.fixedDeltaTime); //플레이어를 움직이게 하는 코드, 플레이어의 포지션에 벡터값과 프레임 사이의 간격을 곱해 플레이어를 움직임
-
+        if (!isLevelingUp)
+        {
+            rigid2D.MovePosition(rigid2D.position + moveVelocity * Time.fixedDeltaTime);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
