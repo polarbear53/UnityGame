@@ -176,11 +176,11 @@ public class PlayerController : MonoBehaviour
         Time.timeScale = 0;
 
         string[] options = new string[] // 레벨업 옵션
-    {
+        {
         "플레이어 최대 체력 up", "플레이어 HP 회복", "플레이어 공격력 up",
         "플레이어 이동 속도 up", "타워 투사체 발사 속도 up", "타워 공격력 up",
         "타워 투사체 속도 up", "타워 회복"
-    };
+        };
 
         int[] randomIndexes = UiManagerController.instance.GetRandomIndexes(options.Length, options.Length);
 
