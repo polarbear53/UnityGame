@@ -17,13 +17,9 @@ public class MonsterController : MonoBehaviour
     public RectTransform hpfront; // 체력바의 스케일을 조정해 닳게하기 위해
     public GameObject expPrefab; // 경험치 오브젝트
 
-    void Start()
+    void Awake()
     {
-        this.player = GameObject.Find("player"); //플레이어의 찾기
-        this.tower = GameObject.Find("tower"); //타워 찾기
-        this.tower2 = GameObject.Find("tower2"); //타워2 찾기 (없을 수도 있음)
-        this.tower3 = GameObject.Find("tower3"); //타워3 찾기 (없을 수도 있음)
-        this.tower4 = GameObject.Find("tower4"); //타워3 찾기 (없을 수도 있음)
+        FindObjects();
         InitMonster(); //몬스터 초기화
 
     }
@@ -108,6 +104,15 @@ public class MonsterController : MonoBehaviour
         }
     }
 
+    void FindObjects() //오브젝트 찾기
+    {
+        player = GameObject.Find("player"); //플레이어 오브젝트 찾기
+        tower = GameObject.Find("tower"); //타워 오브젝트 찾기
+        tower2 = GameObject.Find("tower2"); // 타워2 찾기 (없을 수도 있음)
+        tower3 = GameObject.Find("tower3"); // 타워3 찾기 (없을 수도 있음)
+        tower4 = GameObject.Find("tower4"); // 타워4 찾기 (없을 수도 있음)
+    }
+
     void InitMonster() //몬스터가 생성, 활성화 될때 초기화 해주는 함수
     {
         string monsterTag = gameObject.tag;
@@ -146,6 +151,7 @@ public class MonsterController : MonoBehaviour
 
     private void OnEnable()
     {
+        FindObjects(); // 오브젝트 찾기
         InitMonster(); // 활성화될 때 몬스터 초기화
     }
 

@@ -48,6 +48,8 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rigid2D = GetComponent<Rigidbody2D>(); //rigidbody 컴포넌트 가져오기
+        spriter = GetComponent<SpriteRenderer>(); //spriteRenderer 컴포넌트 가져오기
+        anim = GetComponent<Animator>(); // Animator 컴포넌트 가져오기
         transform.position = startPos; //시작지점에서 시작
         currHp = maxHp; // 최대 체력만큼 현재 체력 설정
         currExp = minExp; // 최소치 Exp로 설정
@@ -98,6 +100,7 @@ public class PlayerController : MonoBehaviour
 
     private void StageClear()
     {
+        PoolManager.instance.ClearAll();
         string currentSceneName = SceneManager.GetActiveScene().name; // 현재 씬 이름 가져오기
         string nextSceneName = GetNextSceneName(currentSceneName);    // 다음 씬 이름 계산
 
@@ -132,6 +135,7 @@ public class PlayerController : MonoBehaviour
             {
                 nextSceneName = null; // 예상치 못한 씬 이름
             }
+            PoolManager.instance.ClearAll(); // 풀링된 오브젝트 모두 제거
 
             return nextSceneName;
         }
@@ -285,6 +289,7 @@ public class PlayerController : MonoBehaviour
 
     public void GameOver()
     {
+        PoolManager.instance.ClearAll();
         SceneManager.LoadScene("GameOver");
     }
 
