@@ -204,16 +204,9 @@ public class PlayerController : MonoBehaviour
         // 게임 일시정지
         Time.timeScale = 0;
 
-        string[] options = new string[] // 레벨업 옵션
-        {
-        "플레이어 최대 체력 up", "플레이어 HP 회복", "플레이어 공격력 up",
-        "플레이어 이동 속도 up", "타워 투사체 발사 속도 up", "타워 공격력 up",
-        "타워 투사체 속도 up", "타워 회복"
-        };
+        int[] randomIndexes = UiManagerController.instance.GetRandomIndexes(8, 8);
 
-        int[] randomIndexes = UiManagerController.instance.GetRandomIndexes(options.Length, options.Length);
-
-        UiManagerController.instance.ShowLevelUpPanel(options, randomIndexes); //패널 보여주기
+        UiManagerController.instance.ShowLevelUpPanel(randomIndexes); //패널 보여주기
     }
     void FixedUpdate() //Update함수는 프레임이 일정하지 않기 때문에 rigidbody를 다루는 코드를 설정하는 함수
     {
