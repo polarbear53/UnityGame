@@ -62,16 +62,8 @@ public class UiManagerController : MonoBehaviour
         HideLevelUpPanel(); // 초기에는 레벨업 패널 숨기기
     }
 
-    public void ShowLevelUpPanel(string[] options, int[] randomIndexes)
-    {
-        HpUp.GetComponentInChildren<TextMeshProUGUI>().text = options[randomIndexes[0]];
-        Recovery.GetComponentInChildren<TextMeshProUGUI>().text = options[randomIndexes[1]];
-        DamageUp.GetComponentInChildren<TextMeshProUGUI>().text = options[randomIndexes[2]];
-        SpeedUp.GetComponentInChildren<TextMeshProUGUI>().text = options[randomIndexes[3]];
-        TowerAttackSpeed.GetComponentInChildren<TextMeshProUGUI>().text = options[randomIndexes[4]];
-        TowerDamage.GetComponentInChildren<TextMeshProUGUI>().text = options[randomIndexes[5]];
-        TowerGiSpeed.GetComponentInChildren<TextMeshProUGUI>().text = options[randomIndexes[6]];
-        TowerHpRecovery.GetComponentInChildren<TextMeshProUGUI>().text = options[randomIndexes[7]];
+    public void ShowLevelUpPanel(int[] randomIndexes)
+    { 
 
         HpUp.onClick.AddListener(() => ApplyLevelUpEffect(0));
         Recovery.onClick.AddListener(() => ApplyLevelUpEffect(1));
@@ -340,9 +332,6 @@ public class UiManagerController : MonoBehaviour
         {
             int buttonIndex = selectedIndexes[i];
             Button button = buttons[buttonIndex];
-
-            // 텍스트 제거
-            button.GetComponentInChildren<TextMeshProUGUI>().text = string.Empty;
 
             // 위치 설정
             button.transform.position = positionList[i];
