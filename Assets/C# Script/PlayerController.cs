@@ -1,179 +1,220 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using TMPro;
+using System.Linq;
 
 public class PlayerController : MonoBehaviour
 {
-    Rigidbody2D rigid2D; // ¹°¸® ÀÌµ¿À» À§ÇÑ º¯¼ö
-    Vector2 moveVelocity; //Á¤±ÔÈ­µÈ º¤ÅÍ°ªÀ» ´ã±â À§ÇÑ º¯¼ö
-    Vector3 dir; //¸¶¿ì½º ¹æÇâº¤ÅÍ¸¦ ÀúÀåÇÒ º¯¼ö
+    Rigidbody2D rigid2D; // ë¬¼ë¦¬ ì´ë™ì„ ìœ„í•œ ë³€ìˆ˜
+    SpriteRenderer spriter;//ì¢Œìš°ë°˜ì „ì„ ìœ„í•œ ë³€ìˆ˜
+    Animator anim;//ì• ë‹ˆë©”ì´ì…˜ ì ìš©ì„ ìœ„í•œ ë³€ìˆ˜
+    Vector2 moveVelocity; //ì •ê·œí™”ëœ ë²¡í„°ê°’ì„ ë‹´ê¸° ìœ„í•œ ë³€ìˆ˜
+    Vector3 dir; //ë§ˆìš°ìŠ¤ ë°©í–¥ë²¡í„°ë¥¼ ì €ì¥í•  ë³€ìˆ˜
 
-    public float speed = 10.0f; // ÇÃ·¹ÀÌ¾îÀÇ ½ºÇÇµå¸¦ Á¶ÀıÇÏ´Â º¯¼ö
-    public float currHp; //ÇÃ·¹ÀÌ¾îÀÇ ÇöÀç hp
-    public float maxHp = 10f; //ÇÃ·¹ÀÌ¾îÀÇ ÃÖ´ë Ã¼·Â
-    public float giSpeed = 30.0f; //±âÀÇ ¼Óµµ
-    public float ShootRate = 0.5f; //´ÙÀ½ ±â¸¦ ½î±â±îÁö °É¸®´Â µô·¹ÀÌ ½Ã°£
-    public float giDamage = 1f; //±âÀÇ °ø°İ·Â
-    private float nextShootTime = 0f; //½Ã°£ °è»ê
+    public float speed = 10.0f; // í”Œë ˆì´ì–´ì˜ ìŠ¤í”¼ë“œë¥¼ ì¡°ì ˆí•˜ëŠ” ë³€ìˆ˜
+    public float currHp; //í”Œë ˆì´ì–´ì˜ í˜„ì¬ hp
+    public float maxHp = 10f; //í”Œë ˆì´ì–´ì˜ ìµœëŒ€ ì²´ë ¥
+    public float giSpeed = 30.0f; //ê¸°ì˜ ì†ë„
+    public float ShootRate = 0.5f; //ë‹¤ìŒ ê¸°ë¥¼ ì˜ê¸°ê¹Œì§€ ê±¸ë¦¬ëŠ” ë”œë ˆì´ ì‹œê°„
+    public float giDamage = 1f; //ê¸°ì˜ ê³µê²©ë ¥
+    private float nextShootTime = 0f; //ì‹œê°„ ê³„ì‚°
 
-    public GameObject giPrefab; //½ò ±â
-    public GameObject hpbar; // Ã¼·Â¹Ù¸¦ º¸ÀÌ°Å³ª º¸ÀÌÁö ¾Ê°Ô ÇÏ±â À§ÇØ
-    public RectTransform hpfront; // Ã¼·Â¹ÙÀÇ ½ºÄÉÀÏÀ» Á¶Á¤ÇØ ´â°ÔÇÏ±â À§ÇØ
+    public GameObject giPrefab; //ì  ê¸°
+    public GameObject hpbar; // ì²´ë ¥ë°”ë¥¼ ë³´ì´ê±°ë‚˜ ë³´ì´ì§€ ì•Šê²Œ í•˜ê¸° ìœ„í•´
+    public RectTransform hpfront; // ì²´ë ¥ë°”ì˜ ìŠ¤ì¼€ì¼ì„ ì¡°ì •í•´ ë‹³ê²Œí•˜ê¸° ìœ„í•´
 
-    private float currExp; //ÇÃ·¹ÀÌ¾îÀÇ ÇöÀç Exp
-    public float maxExp = 200f; // Exp ÃÖ´ëÄ¡
-    public float minExp = 1f; // Exp ÃÖ¼ÒÄ¡
-    public GameObject expbar; // °æÇèÄ¡¹Ù¸¦ º¸ÀÌ°Å³ª º¸ÀÌÁö ¾Ê°Ô ÇÏ±â À§ÇØ
-    public RectTransform expfront; // °æÇèÄ¡¹ÙÀÇ ½ºÄÉÀÏÀ» Á¶Á¤ÇØ ´â°ÔÇÏ±â À§ÇØ
+    private float currExp; //í”Œë ˆì´ì–´ì˜ í˜„ì¬ Exp
+    public float maxExp = 200f; // Exp ìµœëŒ€ì¹˜
+    public float minExp = 1f; // Exp ìµœì†Œì¹˜
+    public GameObject expbar; // ê²½í—˜ì¹˜ë°”ë¥¼ ë³´ì´ê±°ë‚˜ ë³´ì´ì§€ ì•Šê²Œ í•˜ê¸° ìœ„í•´
+    public RectTransform expfront; // ê²½í—˜ì¹˜ë°”ì˜ ìŠ¤ì¼€ì¼ì„ ì¡°ì •í•´ ë‹³ê²Œí•˜ê¸° ìœ„í•´
 
-    public float stageTimeLimit = 180f; // ½ºÅ×ÀÌÁö Á¦ÇÑ ½Ã°£ (ÃÊ ´ÜÀ§)
-    private float elapsedTime = 0f;    // °æ°ú ½Ã°£
+    public float stageTimeLimit = 180f; // ìŠ¤í…Œì´ì§€ ì œí•œ ì‹œê°„ (ì´ˆ ë‹¨ìœ„)
+    private float elapsedTime = 0f;    // ê²½ê³¼ ì‹œê°„
 
-    Vector2 minBounds = new Vector2(-57, -32); //¸ÊÀÇ Å©±â
+    public float maxTime = 180f; // ìµœëŒ€ ì‹œê°„
+    private float currentTime; // í˜„ì¬ ì‹œê°„
+    public RectTransform timerBarFront; // íƒ€ì´ë¨¸ ë°”ì˜ í”„ëŸ°íŠ¸(RectTransform)
+    public GameObject timerBackground; // íƒ€ì´ë¨¸ì˜ ë°°ê²½ ë¶€ë¶„
+    private float timerMaxDuration; // íƒ€ì´ë¨¸ì˜ ìµœëŒ€ ì‹œê°„
+    private float timerCurrentTime; // íƒ€ì´ë¨¸ì˜ í˜„ì¬ ì‹œê°„
+
+    public Button HpUp, Recovery, DamageUp, SpeedUp; // ë ˆë²¨ì—… ì„ íƒì§€ ë²„íŠ¼(í”Œë ˆì´ì–´)
+    public Button TowerAttackSpeed, TowerDamage, TowerGiSpeed, TowerHpRecovery; // ë ˆë²¨ì—… ì„ íƒì§€ ë²„íŠ¼(íƒ€ì›Œ)
+    public GameObject levelUpPanel; // ë ˆë²¨ì—… ì„ íƒì§€ë¥¼ ë‹´ì€ íŒ¨ë„
+
+    Vector2 minBounds = new Vector2(-57, -32); //ë§µì˜ í¬ê¸°
     Vector2 maxBounds = new Vector2(57, 32);
-    Vector2 startPos = new Vector2(0, -2); //½ÃÀÛ À§Ä¡ Á¶Á¤
+    Vector2 startPos = new Vector2(0, -2); //ì‹œì‘ ìœ„ì¹˜ ì¡°ì •
 
     private bool isLevelingUp = false;
 
     void Start()
     {
+        rigid2D = GetComponent<Rigidbody2D>(); //rigidbody ì»´í¬ë„ŒíŠ¸ ê°€ì ¸ì˜¤ê¸°
+        spriter = GetComponent<SpriteRenderer>(); //spriteRenderer ì»´í¬ë„ŒíŠ¸ ê°€ì ¸ì˜¤ê¸°
+        anim = GetComponent<Animator>(); // Animator ì»´í¬ë„ŒíŠ¸ ê°€ì ¸ì˜¤ê¸°
+        transform.position = startPos; //ì‹œì‘ì§€ì ì—ì„œ ì‹œì‘
+        currHp = maxHp; // ìµœëŒ€ ì²´ë ¥ë§Œí¼ í˜„ì¬ ì²´ë ¥ ì„¤ì •
+        currExp = minExp; // ìµœì†Œì¹˜ Expë¡œ ì„¤ì •
 
-        rigid2D = GetComponent<Rigidbody2D>(); //rigidbody ÄÄÆ÷³ÍÆ® °¡Á®¿À±â
-        transform.position = startPos; //½ÃÀÛÁöÁ¡¿¡¼­ ½ÃÀÛ
-        currHp = maxHp; // ÃÖ´ë Ã¼·Â¸¸Å­ ÇöÀç Ã¼·Â ¼³Á¤
-        currExp = minExp; // ÃÖ¼ÒÄ¡ Exp·Î ¼³Á¤
+        UpdateExpBar(); // ê²½í—˜ì¹˜ë°” ì´ˆê¸°í™”
 
-        UpdateExpBar(); // °æÇèÄ¡¹Ù ÃÊ±âÈ­
+        currentTime = maxTime; // ì‹œì‘í•  ë•Œ ìµœëŒ€ ì‹œê°„ìœ¼ë¡œ ì„¤ì •
+        timerMaxDuration = stageTimeLimit; // ìŠ¤í…Œì´ì§€ ì œí•œ ì‹œê°„
+        timerCurrentTime = stageTimeLimit; // ì´ˆê¸° ì‹œê°„ì€ ìµœëŒ€ ì‹œê°„ê³¼ ë™ì¼
+        UpdateTimerBar(); // íƒ€ì´ë¨¸ ë°” ì´ˆê¸°í™”
     }
 
     void Update()
     {
-        if (isLevelingUp) return; // ·¹º§¾÷ Áß¿¡´Â Á¶ÀÛ ±İÁö
+        if (isLevelingUp) return; // ë ˆë²¨ì—… ì¤‘ì—ëŠ” ì¡°ì‘ ê¸ˆì§€
 
-        if (Time.timeScale > 0) // °ÔÀÓÀÌ ÀÏ½ÃÁ¤Áö »óÅÂ°¡ ¾Æ´Ò ¶§¸¸ Å¸ÀÌ¸Ó ÀÛµ¿
+        if (Time.timeScale > 0) // ê²Œì„ì´ ì¼ì‹œì •ì§€ ìƒíƒœê°€ ì•„ë‹ˆë©´ íƒ€ì´ë¨¸ ì—…ë°ì´íŠ¸
         {
-            elapsedTime += Time.deltaTime;
+            timerCurrentTime -= Time.deltaTime; // ì‹œê°„ ê°ì†Œ
+            UpdateTimerBar(); // íƒ€ì´ë¨¸ ë°” ì—…ë°ì´íŠ¸
 
-            if (elapsedTime >= stageTimeLimit)
+            if (timerCurrentTime <= 0) // ì‹œê°„ì´ ëª¨ë‘ ì†Œì§„ë˜ë©´
             {
-                StageClear();
+                timerCurrentTime = 0; // íƒ€ì´ë¨¸ë¥¼ 0ìœ¼ë¡œ ê³ ì •
+                StageClear(); // ìŠ¤í…Œì´ì§€ í´ë¦¬ì–´ ì²˜ë¦¬
             }
         }
 
-        Vector2 pos = transform.position; //ÇÃ·¹ÀÌ¾îÀÇ À§Ä¡
-        pos.x = Mathf.Clamp(pos.x, minBounds.x, maxBounds.x); //ÇÃ·¹ÀÌ¾îÀÇ À§Ä¡¸¦ ¸Ê Å©±â¿¡ ¸ÂÃç Á¦ÇÑ
-        pos.y = Mathf.Clamp(pos.y, minBounds.y, maxBounds.y);
-        transform.position = pos; //Á¦ÇÑµÈ À§Ä¡·Î º¯È¯
 
-        float x = Input.GetAxisRaw("Horizontal"); //ad¸¦ »ç¿ëÇØ¼­ ÀÌµ¿(input ¸Å´ÏÀú Á¶Á¤ ÇÊ¿ä)
-        float y = Input.GetAxisRaw("Vertical"); // ws¸¦ ÀÌ¿ëÇØ¼­ ÀÌµ¿
+        Vector2 pos = transform.position; //í”Œë ˆì´ì–´ì˜ ìœ„ì¹˜
+        pos.x = Mathf.Clamp(pos.x, minBounds.x, maxBounds.x); //í”Œë ˆì´ì–´ì˜ ìœ„ì¹˜ë¥¼ ë§µ í¬ê¸°ì— ë§ì¶° ì œí•œ
+        pos.y = Mathf.Clamp(pos.y, minBounds.y, maxBounds.y);
+        transform.position = pos; //ì œí•œëœ ìœ„ì¹˜ë¡œ ë³€í™˜
+
+        float x = Input.GetAxisRaw("Horizontal"); //adë¥¼ ì‚¬ìš©í•´ì„œ ì´ë™(input ë§¤ë‹ˆì € ì¡°ì • í•„ìš”)
+        float y = Input.GetAxisRaw("Vertical"); // wsë¥¼ ì´ìš©í•´ì„œ ì´ë™
 
         Vector2 move = new Vector2(x, y);
-        moveVelocity = move.normalized * speed; // ¼Óµµ¿¡ ¸ÂÃç º¤ÅÍ°ª Á¤±ÔÈ­
+        moveVelocity = move.normalized * speed; // ì†ë„ì— ë§ì¶° ë²¡í„°ê°’ ì •ê·œí™”
 
-        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition); //¸¶¿ì½º°¡ Å¬¸¯µÈ À§Ä¡ ±¸ÇÏ±â
-        dir = (mousePosition - pos).normalized; ////¸¶¿ì½º°¡ Å¬¸¯µÇ¾úÀ» ¶§ À§Ä¡¿Í ÇÃ·¹ÀÌ¾îÀÇ À§Ä¡ °£ÀÇ ¹æÇâ ±¸ÇÏ±â
+        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition); //ë§ˆìš°ìŠ¤ê°€ í´ë¦­ëœ ìœ„ì¹˜ êµ¬í•˜ê¸°
+        dir = (mousePosition - pos).normalized; ////ë§ˆìš°ìŠ¤ê°€ í´ë¦­ë˜ì—ˆì„ ë•Œ ìœ„ì¹˜ì™€ í”Œë ˆì´ì–´ì˜ ìœ„ì¹˜ ê°„ì˜ ë°©í–¥ êµ¬í•˜ê¸°
 
-        if (Input.GetMouseButtonDown(0) && Time.time > nextShootTime) // ¸¶¿ì½º¸¦ ÁÂÅ¬¸¯ ÇßÀ»¶§, µô·¹ÀÌ ½Ã°£ÀÌ Áö³ª¸é
+        if (Input.GetMouseButtonDown(0) && Time.time > nextShootTime) // ë§ˆìš°ìŠ¤ë¥¼ ì¢Œí´ë¦­ í–ˆì„ë•Œ, ë”œë ˆì´ ì‹œê°„ì´ ì§€ë‚˜ë©´
         {
-            nextShootTime = Time.time + ShootRate; //µô·¹ÀÌ ½Ã°£ ÀçÁ¶Á¤
-            Shoot(); //½î±â
+            nextShootTime = Time.time + ShootRate; //ë”œë ˆì´ ì‹œê°„ ì¬ì¡°ì •
+            Shoot(); //ì˜ê¸°
+        }
+
+        anim.SetFloat("speed", move.magnitude);//ì›€ì§ì„ì´ ìˆìœ¼ë©´ moveì• ë‹ˆë©”ì´ì…˜ì ìš©
+        if (x != 0)
+        {
+            spriter.flipX = x < 0;//xê°’ì— ë”°ë¼ ì¢Œìš° ë°˜ì „
+        }
+    }
+
+    private void UpdateTimerBar()
+    {
+        if (timerBarFront != null)
+        {
+            // íƒ€ì´ë¨¸ ë°” í¬ê¸° ì¡°ì •
+            timerBarFront.localScale = new Vector3(timerCurrentTime / timerMaxDuration, 1.0f, 1.0f);
         }
     }
 
     private void StageClear()
     {
-        string currentSceneName = SceneManager.GetActiveScene().name; // ÇöÀç ¾À ÀÌ¸§ °¡Á®¿À±â
-        string nextSceneName = GetNextSceneName(currentSceneName);    // ´ÙÀ½ ¾À ÀÌ¸§ °è»ê
+        PoolManager.instance.ClearAll();
+        string currentSceneName = SceneManager.GetActiveScene().name; // í˜„ì¬ ì”¬ ì´ë¦„ ê°€ì ¸ì˜¤ê¸°
+        string nextSceneName = GetNextSceneName(currentSceneName);    // ë‹¤ìŒ ì”¬ ì´ë¦„ ê³„ì‚°
 
 
         Debug.Log($"Stage Clear! Moving to next scene: {nextSceneName}");
         SceneManager.LoadScene(nextSceneName);
-        
+
     }
 
     private string GetNextSceneName(string currentSceneName)
     {
-        // Á¤±Ô½ÄÀ» »ç¿ëÇØ ¼ıÀÚ¸¦ ÃßÃâ
+        // ì •ê·œì‹ì„ ì‚¬ìš©í•´ ìˆ«ìë¥¼ ì¶”ì¶œ
         System.Text.RegularExpressions.Match match =
             System.Text.RegularExpressions.Regex.Match(currentSceneName, @"(\d+)$");
 
         if (match.Success)
         {
-            int currentSceneNumber = int.Parse(match.Value); // ÇöÀç ¾À ¹øÈ£ ÃßÃâ
+            int currentSceneNumber = int.Parse(match.Value); // í˜„ì¬ ì”¬ ë²ˆí˜¸ ì¶”ì¶œ
             string nextSceneName;
 
-            // ClearNextScene ¡æ GameScene ÀüÈ¯
+            // ClearNextScene â†’ GameScene ì „í™˜
             if (currentSceneName.StartsWith("ClearNextScene"))
             {
-                nextSceneName = $"GameScene{currentSceneNumber}"; // GameSceneX·Î ÀÌµ¿
+                nextSceneName = $"GameScene{currentSceneNumber}"; // GameSceneXë¡œ ì´ë™
             }
-            // GameScene ¡æ ClearNextScene ÀüÈ¯
+            // GameScene â†’ ClearNextScene ì „í™˜
             else if (currentSceneName.StartsWith("GameScene"))
             {
-                nextSceneName = $"ClearNextScene{currentSceneNumber + 1}"; // ClearNextSceneX·Î ÀÌµ¿
+                nextSceneName = $"ClearNextScene{currentSceneNumber + 1}"; // ClearNextSceneXë¡œ ì´ë™
             }
             else
             {
-                nextSceneName = null; // ¿¹»óÄ¡ ¸øÇÑ ¾À ÀÌ¸§
+                nextSceneName = null; // ì˜ˆìƒì¹˜ ëª»í•œ ì”¬ ì´ë¦„
             }
+            PoolManager.instance.ClearAll(); // í’€ë§ëœ ì˜¤ë¸Œì íŠ¸ ëª¨ë‘ ì œê±°
 
             return nextSceneName;
         }
 
-        return null; // ¼ıÀÚ°¡ Æ÷ÇÔµÇÁö ¾ÊÀº °æ¿ì
+        return null; // ìˆ«ìê°€ í¬í•¨ë˜ì§€ ì•Šì€ ê²½ìš°
     }
 
     private void UpdateExpBar()
     {
         if (expfront != null)
         {
-            float expRatio = currExp / maxExp; // ÇöÀç °æÇèÄ¡ ºñÀ² °è»ê
-            expfront.localScale = new Vector3(expRatio, 1.0f, 1.0f); // °æÇèÄ¡¹Ù Å©±â Á¶Á¤
+            float expRatio = currExp / maxExp; // í˜„ì¬ ê²½í—˜ì¹˜ ë¹„ìœ¨ ê³„ì‚°
+            expfront.localScale = new Vector3(expRatio, 1.0f, 1.0f); // ê²½í—˜ì¹˜ë°” í¬ê¸° ì¡°ì •
         }
     }
 
     public void GainExperience(float exp)
     {
 
-        currExp += exp; // °æÇèÄ¡ Áõ°¡
-        UpdateExpBar(); // °æÇèÄ¡¹Ù ¾÷µ¥ÀÌÆ®
+        currExp += exp; // ê²½í—˜ì¹˜ ì¦ê°€
+        UpdateExpBar(); // ê²½í—˜ì¹˜ë°” ì—…ë°ì´íŠ¸
 
-        // °æÇèÄ¡°¡ ÃÖ´ëÄ¡¿¡ µµ´ŞÇÏ¸é ·¹º§¾÷ Ã³¸®
+        // ê²½í—˜ì¹˜ê°€ ìµœëŒ€ì¹˜ì— ë„ë‹¬í•˜ë©´ ë ˆë²¨ì—… ì²˜ë¦¬
         if (currExp >= maxExp)
         {
-            currExp -= maxExp; // ÃÊ°úµÈ °æÇèÄ¡ À¯Áö
-            LevelUp();         // ·¹º§¾÷ ¸Ş¼­µå È£Ãâ
+            currExp -= maxExp; // ì´ˆê³¼ëœ ê²½í—˜ì¹˜ ìœ ì§€
+            LevelUp();         // ë ˆë²¨ì—… ë©”ì„œë“œ í˜¸ì¶œ
         }
 
-        // °æÇèÄ¡ UI ¾÷µ¥ÀÌÆ® (ÇÊ¿äÇÏ´Ù¸é ±¸Çö)
+        // ê²½í—˜ì¹˜ UI ì—…ë°ì´íŠ¸ (í•„ìš”í•˜ë‹¤ë©´ êµ¬í˜„)
         Debug.Log($"Current Experience: {currExp}");
     }
 
     private void LevelUp()
     {
-        // ·¹º§¾÷ ·ÎÁ÷
+        // ë ˆë²¨ì—… ë¡œì§
         Debug.Log("Level Up!");
 
-        UpdateExpBar(); // °æÇèÄ¡¹Ù ¾÷µ¥ÀÌÆ®
+        UpdateExpBar(); // ê²½í—˜ì¹˜ë°” ì—…ë°ì´íŠ¸
 
-        // °ÔÀÓ ÀÏ½ÃÁ¤Áö
+        // ê²Œì„ ì¼ì‹œì •ì§€
         Time.timeScale = 0;
 
-        string[] options = new string[] // ·¹º§¾÷ ¿É¼Ç
-    {
-        "ÇÃ·¹ÀÌ¾î ÃÖ´ë Ã¼·Â up", "ÇÃ·¹ÀÌ¾î HP È¸º¹", "ÇÃ·¹ÀÌ¾î °ø°İ·Â up",
-        "ÇÃ·¹ÀÌ¾î ÀÌµ¿ ¼Óµµ up", "Å¸¿ö Åõ»çÃ¼ ¹ß»ç ¼Óµµ up", "Å¸¿ö °ø°İ·Â up",
-        "Å¸¿ö Åõ»çÃ¼ ¼Óµµ up", "Å¸¿ö È¸º¹"
-    };
+        string[] options = new string[] // ë ˆë²¨ì—… ì˜µì…˜
+        {
+        "í”Œë ˆì´ì–´ ìµœëŒ€ ì²´ë ¥ up", "í”Œë ˆì´ì–´ HP íšŒë³µ", "í”Œë ˆì´ì–´ ê³µê²©ë ¥ up",
+        "í”Œë ˆì´ì–´ ì´ë™ ì†ë„ up", "íƒ€ì›Œ íˆ¬ì‚¬ì²´ ë°œì‚¬ ì†ë„ up", "íƒ€ì›Œ ê³µê²©ë ¥ up",
+        "íƒ€ì›Œ íˆ¬ì‚¬ì²´ ì†ë„ up", "íƒ€ì›Œ íšŒë³µ"
+        };
 
         int[] randomIndexes = UiManagerController.instance.GetRandomIndexes(options.Length, options.Length);
 
-        UiManagerController.instance.ShowLevelUpPanel(options, randomIndexes); //ÆĞ³Î º¸¿©ÁÖ±â
+        UiManagerController.instance.ShowLevelUpPanel(options, randomIndexes); //íŒ¨ë„ ë³´ì—¬ì£¼ê¸°
     }
-
-    void FixedUpdate() //UpdateÇÔ¼ö´Â ÇÁ·¹ÀÓÀÌ ÀÏÁ¤ÇÏÁö ¾Ê±â ¶§¹®¿¡ rigidbody¸¦ ´Ù·ç´Â ÄÚµå¸¦ ¼³Á¤ÇÏ´Â ÇÔ¼ö
+    void FixedUpdate() //Updateí•¨ìˆ˜ëŠ” í”„ë ˆì„ì´ ì¼ì •í•˜ì§€ ì•Šê¸° ë•Œë¬¸ì— rigidbodyë¥¼ ë‹¤ë£¨ëŠ” ì½”ë“œë¥¼ ì„¤ì •í•˜ëŠ” í•¨ìˆ˜
     {
         if (!isLevelingUp)
         {
@@ -183,14 +224,14 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("eat")) //eat ÅÂ±×¸¦ °¡Áø ¿ÀºêÁ§Æ®¿Í ºÎµúÈ÷¸é
+        if (collision.gameObject.CompareTag("eat")) //eat íƒœê·¸ë¥¼ ê°€ì§„ ì˜¤ë¸Œì íŠ¸ì™€ ë¶€ë”ªíˆë©´
         {
             if (currHp > 0)
-            { //ÇöÀç Ã¼·ÂÀÌ ³²¾ÆÀÖ´Ù¸é
-                currHp -= 1.0f; //Ã¼·Â 1A±â
-                hpfront.localScale = new Vector3(currHp / maxHp, 1.0f, 1.0f); // ÇöÀç Ã¼·ÂÀ» ÃÖ´ë Ã¼·ÂÀ¸·Î ³ª´©¾î¼­ hpÁ¶Àı
+            { //í˜„ì¬ ì²´ë ¥ì´ ë‚¨ì•„ìˆë‹¤ë©´
+                currHp -= 1.0f; //ì²´ë ¥ 1ÂAê¸°
+                hpfront.localScale = new Vector3(currHp / maxHp, 1.0f, 1.0f); // í˜„ì¬ ì²´ë ¥ì„ ìµœëŒ€ ì²´ë ¥ìœ¼ë¡œ ë‚˜ëˆ„ì–´ì„œ hpì¡°ì ˆ
 
-                PoolManager.instance.ReturnPreFab(collision.gameObject); //Ãæµ¹ÇÑ ¸ó½ºÅÍ ºñÈ°¼ºÈ­(Ç®¸µ)
+                PoolManager.instance.ReturnPreFab(collision.gameObject); //ì¶©ëŒí•œ ëª¬ìŠ¤í„° ë¹„í™œì„±í™”(í’€ë§)
 
             }
 
@@ -199,14 +240,14 @@ public class PlayerController : MonoBehaviour
                 GameOver();
             }
         }
-        if (collision.gameObject.CompareTag("gohome")) //gohome ÅÂ±×¸¦ °¡Áø ¿ÀºêÁ§Æ®¿Í ºÎµúÈ÷¸é
+        if (collision.gameObject.CompareTag("gohome")) //gohome íƒœê·¸ë¥¼ ê°€ì§„ ì˜¤ë¸Œì íŠ¸ì™€ ë¶€ë”ªíˆë©´
         {
             if (currHp > 0)
-            { //ÇöÀç Ã¼·ÂÀÌ ³²¾ÆÀÖ´Ù¸é
-                currHp -= 1.0f; //Ã¼·Â 1A±â
-                hpfront.localScale = new Vector3(currHp / maxHp, 1.0f, 1.0f); // ÇöÀç Ã¼·ÂÀ» ÃÖ´ë Ã¼·ÂÀ¸·Î ³ª´©¾î¼­ hpÁ¶Àı
+            { //í˜„ì¬ ì²´ë ¥ì´ ë‚¨ì•„ìˆë‹¤ë©´
+                currHp -= 1.0f; //ì²´ë ¥ 1ÂAê¸°
+                hpfront.localScale = new Vector3(currHp / maxHp, 1.0f, 1.0f); // í˜„ì¬ ì²´ë ¥ì„ ìµœëŒ€ ì²´ë ¥ìœ¼ë¡œ ë‚˜ëˆ„ì–´ì„œ hpì¡°ì ˆ
 
-                PoolManager.instance.ReturnPreFab(collision.gameObject);//Ãæµ¹ÇÑ ¸ó½ºÅÍ ºñÈ°¼ºÈ­(Ç®¸µ)
+                PoolManager.instance.ReturnPreFab(collision.gameObject);//ì¶©ëŒí•œ ëª¬ìŠ¤í„° ë¹„í™œì„±í™”(í’€ë§)
 
             }
 
@@ -215,14 +256,14 @@ public class PlayerController : MonoBehaviour
                 GameOver();
             }
         }
-        if (collision.gameObject.CompareTag("what")) //what ÅÂ±×¸¦ °¡Áø ¿ÀºêÁ§Æ®¿Í ºÎµúÈ÷¸é
+        if (collision.gameObject.CompareTag("what")) //what íƒœê·¸ë¥¼ ê°€ì§„ ì˜¤ë¸Œì íŠ¸ì™€ ë¶€ë”ªíˆë©´
         {
             if (currHp > 0)
-            { //ÇöÀç Ã¼·ÂÀÌ ³²¾ÆÀÖ´Ù¸é
-                currHp -= 2.0f; //Ã¼·Â 2A±â
-                hpfront.localScale = new Vector3(currHp / maxHp, 1.0f, 1.0f); // ÇöÀç Ã¼·ÂÀ» ÃÖ´ë Ã¼·ÂÀ¸·Î ³ª´©¾î¼­ hpÁ¶Àı
+            { //í˜„ì¬ ì²´ë ¥ì´ ë‚¨ì•„ìˆë‹¤ë©´
+                currHp -= 2.0f; //ì²´ë ¥ 2ÂAê¸°
+                hpfront.localScale = new Vector3(currHp / maxHp, 1.0f, 1.0f); // í˜„ì¬ ì²´ë ¥ì„ ìµœëŒ€ ì²´ë ¥ìœ¼ë¡œ ë‚˜ëˆ„ì–´ì„œ hpì¡°ì ˆ
 
-                PoolManager.instance.ReturnPreFab(collision.gameObject); //Ãæµ¹ÇÑ ¸ó½ºÅÍ ºñÈ°¼ºÈ­(Ç®¸µ)
+                PoolManager.instance.ReturnPreFab(collision.gameObject); //ì¶©ëŒí•œ ëª¬ìŠ¤í„° ë¹„í™œì„±í™”(í’€ë§)
             }
 
             else
@@ -230,30 +271,14 @@ public class PlayerController : MonoBehaviour
                 GameOver();
             }
         }
-        if (collision.gameObject.CompareTag("no")) //no ÅÂ±×¸¦ °¡Áø ¿ÀºêÁ§Æ®¿Í ºÎµúÈ÷¸é
+        if (collision.gameObject.CompareTag("no")) //no íƒœê·¸ë¥¼ ê°€ì§„ ì˜¤ë¸Œì íŠ¸ì™€ ë¶€ë”ªíˆë©´
         {
             if (currHp > 0)
-            { //ÇöÀç Ã¼·ÂÀÌ ³²¾ÆÀÖ´Ù¸é
-                currHp -= 3.0f; //ÇöÀç Ã¼·Â A±â
-                hpfront.localScale = new Vector3(currHp / maxHp, 1.0f, 1.0f); // ÇöÀç Ã¼·ÂÀ» ÃÖ´ë Ã¼·ÂÀ¸·Î ³ª´©¾î¼­ hpÁ¶Àı
+            { //í˜„ì¬ ì²´ë ¥ì´ ë‚¨ì•„ìˆë‹¤ë©´
+                currHp -= 3.0f; //í˜„ì¬ ì²´ë ¥ ÂAê¸°
+                hpfront.localScale = new Vector3(currHp / maxHp, 1.0f, 1.0f); // í˜„ì¬ ì²´ë ¥ì„ ìµœëŒ€ ì²´ë ¥ìœ¼ë¡œ ë‚˜ëˆ„ì–´ì„œ hpì¡°ì ˆ
 
-                PoolManager.instance.ReturnPreFab(collision.gameObject); //Ãæµ¹ÇÑ ¸ó½ºÅÍ ºñÈ°¼ºÈ­(Ç®¸µ)
-
-            }
-
-            else
-            {
-                GameOver();
-            }
-        }
-        if (collision.gameObject.CompareTag("pressure")) //pressure ÅÂ±×¸¦ °¡Áø ¿ÀºêÁ§Æ®¿Í ºÎµúÈ÷¸é
-        {
-            if (currHp > 0)
-            { //ÇöÀç Ã¼·ÂÀÌ ³²¾ÆÀÖ´Ù¸é
-                currHp -= 5.0f; //ÇöÀç Ã¼·Â A±â
-                hpfront.localScale = new Vector3(currHp / maxHp, 1.0f, 1.0f); // ÇöÀç Ã¼·ÂÀ» ÃÖ´ë Ã¼·ÂÀ¸·Î ³ª´©¾î¼­ hpÁ¶Àı
-
-                PoolManager.instance.ReturnPreFab(collision.gameObject); //Ãæµ¹ÇÑ ¸ó½ºÅÍ ºñÈ°¼ºÈ­(Ç®¸µ)
+                PoolManager.instance.ReturnPreFab(collision.gameObject); //ì¶©ëŒí•œ ëª¬ìŠ¤í„° ë¹„í™œì„±í™”(í’€ë§)
 
             }
 
@@ -262,23 +287,42 @@ public class PlayerController : MonoBehaviour
                 GameOver();
             }
         }
-        if (collision.gameObject.CompareTag("exp")) {
-            GainExperience(10); // °æÇèÄ¡ È¹µæ
-            PoolManager.instance.ReturnPreFab(collision.gameObject); //°æÇèÄ¡ ¹İÈ¯
+        if (collision.gameObject.CompareTag("pressure")) //pressure íƒœê·¸ë¥¼ ê°€ì§„ ì˜¤ë¸Œì íŠ¸ì™€ ë¶€ë”ªíˆë©´
+        {
+            if (currHp > 0)
+            { //í˜„ì¬ ì²´ë ¥ì´ ë‚¨ì•„ìˆë‹¤ë©´
+                currHp -= 5.0f; //í˜„ì¬ ì²´ë ¥ ÂAê¸°
+                hpfront.localScale = new Vector3(currHp / maxHp, 1.0f, 1.0f); // í˜„ì¬ ì²´ë ¥ì„ ìµœëŒ€ ì²´ë ¥ìœ¼ë¡œ ë‚˜ëˆ„ì–´ì„œ hpì¡°ì ˆ
+
+                PoolManager.instance.ReturnPreFab(collision.gameObject); //ì¶©ëŒí•œ ëª¬ìŠ¤í„° ë¹„í™œì„±í™”(í’€ë§)
+
+            }
+
+            else
+            {
+                GameOver();
+            }
+        }
+        if (collision.gameObject.CompareTag("exp"))
+        {
+            GainExperience(10); // ê²½í—˜ì¹˜ íšë“
+            PoolManager.instance.ReturnPreFab(collision.gameObject); //ê²½í—˜ì¹˜ ë°˜í™˜
         }
     }
+
 
     public void GameOver()
     {
+        PoolManager.instance.ClearAll();
         SceneManager.LoadScene("GameOver");
     }
 
-    void Shoot() { // ±â¸¦ ½î´Â ÇÔ¼ö
-        GameObject gi = PoolManager.instance.GetPreFab(giPrefab); //Ç®¿¡¼­ ±â¸¦ °¡Á®¿À±â
-        gi.transform.position = transform.position; //±âÀÇ À§Ä¡¸¦ ÇÃ·¹ÀÌ¾îÀÇ À§Ä¡·Î ÀÌµ¿
-        gi.GetComponent<Rigidbody2D>().velocity = dir * giSpeed; //¼³Á¤ÇÑ ±âÀÇ ¼Óµµ¸¸Å­ ¸¶¿ì½º À§Ä¡·Î ¹ß»ç
+    void Shoot()
+    { // ê¸°ë¥¼ ì˜ëŠ” í•¨ìˆ˜
+        GameObject gi = PoolManager.instance.GetPreFab(giPrefab); //í’€ì—ì„œ ê¸°ë¥¼ ê°€ì ¸ì˜¤ê¸°
+        gi.transform.position = transform.position; //ê¸°ì˜ ìœ„ì¹˜ë¥¼ í”Œë ˆì´ì–´ì˜ ìœ„ì¹˜ë¡œ ì´ë™
+        gi.GetComponent<Rigidbody2D>().velocity = dir * giSpeed; //ì„¤ì •í•œ ê¸°ì˜ ì†ë„ë§Œí¼ ë§ˆìš°ìŠ¤ ìœ„ì¹˜ë¡œ ë°œì‚¬
     }
 
 }
-
 

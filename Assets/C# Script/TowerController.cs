@@ -21,6 +21,8 @@ public class TowerController : MonoBehaviour
     public float towerdamage = 1f; // 공격력
     public float projectileSpeed = 5f; // 기(투사체)의 속도
 
+    public Button TowerAttackSpeed, TowerDamage, TowerGiSpeed, TowerHpRecovery; // 레벨업 선택지 버튼(타워)
+
     private float fireCooldown; // 발사 쿨다운 시간
 
     void Start()
@@ -196,7 +198,6 @@ public class TowerController : MonoBehaviour
         if (projectileScript != null)
         {
             projectileScript.SetTarget(target);
-            projectileScript.SetSpeed(projectileSpeed); //투사체 속도 설정
         }
     }
 
@@ -204,27 +205,27 @@ public class TowerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("eat"))
         {
-            TakeDamage(1f, collision.gameObject);
+            TakeDamage(1.0f, collision.gameObject);
         }
         else if (collision.gameObject.CompareTag("gohome"))
         {
-            TakeDamage(1f, collision.gameObject);
+            TakeDamage(1.0f, collision.gameObject);
         }
         else if (collision.gameObject.CompareTag("what"))
         {
-            TakeDamage(2f, collision.gameObject);
+            TakeDamage(2.0f, collision.gameObject);
         }
         else if (collision.gameObject.CompareTag("no"))
         {
-            TakeDamage(3f, collision.gameObject);
+            TakeDamage(3.0f, collision.gameObject);
         }
         else if (collision.gameObject.CompareTag("pressure"))
         {
-            TakeDamage(5f, collision.gameObject);
+            TakeDamage(5.0f, collision.gameObject);
         }
     }
 
-    void TakeDamage(float damage, GameObject monster) //몬스터와 부딪혔을 떄 체력 깎기
+    void TakeDamage(float damage, GameObject monster)
     {
         if (currHp > 0)
         {
