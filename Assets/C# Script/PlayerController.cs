@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour
 
     public float maxTime = 180f; // 최대 시간
     private float currentTime; // 현재 시간
-    public RectTransform timerBarFront; // 타이머 바의 프런트(RectTransform)
+    public Image timerBarFront; // 타이머 바의 프런트(RectTransform)
     public GameObject timerBackground; // 타이머의 배경 부분
     private float timerMaxDuration; // 타이머의 최대 시간
     private float timerCurrentTime; // 타이머의 현재 시간
@@ -118,7 +118,8 @@ public class PlayerController : MonoBehaviour
         if (timerBarFront != null)
         {
             // 타이머 바 크기 조정
-            timerBarFront.localScale = new Vector3(timerCurrentTime / timerMaxDuration, 1.0f, 1.0f);
+            float timerRatio = timerCurrentTime / timerMaxDuration;
+            timerBarFront.fillAmount = timerRatio;
         }
     }
 
