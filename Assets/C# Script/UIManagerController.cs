@@ -15,7 +15,7 @@ public class UiManagerController : MonoBehaviour
     public Button TowerAttackSpeed, TowerDamage, TowerGiSpeed, TowerHpRecovery; // 레벨업 선택지 버튼(타워)
 
     public PlayerController playerController; // 플레이어에 접근
-    public TowerController tower1; // 타워1에 접근
+    public TowerController tower; // 타워1에 접근
     public TowerController tower2; // 타워2에 접근
     public TowerController tower3; // 타워3에 접근
     public TowerController tower4; // 타워4에 접근
@@ -48,7 +48,7 @@ public class UiManagerController : MonoBehaviour
     private void Awake()
     {
         playerController = FindObjectOfType<PlayerController>();
-        tower1 = FindObjectOfType<TowerController>();
+        tower = FindObjectOfType<TowerController>();
 
         if (instance == null)
         {
@@ -132,7 +132,7 @@ public class UiManagerController : MonoBehaviour
                 // 타워, 타워2, 타워3, 타워4가 있을 경우
                 if (tower2 != null && tower3 != null && tower4 != null)
                 {
-                    tower1.fireRate += 0.5f;
+                    tower.fireRate += 0.5f;
                     tower2.fireRate += 0.5f;
                     tower3.fireRate += 0.5f;
                     tower4.fireRate += 0.5f;
@@ -140,13 +140,13 @@ public class UiManagerController : MonoBehaviour
                 // 타워, 타워2가 있을 경우
                 else if (tower2 != null)
                 {
-                    tower1.fireRate += 0.5f;
+                    tower.fireRate += 0.5f;
                     tower2.fireRate += 0.5f;
                 }
                 // 타워만 있을 경우
                 else
                 {
-                    tower1.fireRate += 0.5f;
+                    tower.fireRate += 0.5f;
                 }
                 Debug.Log("타워 투사체 발사 속도 증가!");
                 break;
@@ -154,12 +154,12 @@ public class UiManagerController : MonoBehaviour
                 // 타워, 타워2, 타워3, 타워4가 있을 경우
                 if (tower2 != null && tower3 != null && tower4 != null)
                 {
-                    tower1.towerdamage += 1;
+                    tower.towerdamage += 1;
                     tower2.towerdamage += 1;
                     tower3.towerdamage += 1;
                     tower4.towerdamage += 1;
 
-                    Debug.Log("현재 타워1의 공격력: " + tower1.towerdamage);
+                    Debug.Log("현재 타워1의 공격력: " + tower.towerdamage);
                     Debug.Log("현재 타워2의 공격력: " + tower2.towerdamage);
                     Debug.Log("현재 타워3의 공격력: " + tower3.towerdamage);
                     Debug.Log("현재 타워4의 공격력: " + tower4.towerdamage);
@@ -167,17 +167,17 @@ public class UiManagerController : MonoBehaviour
                 // 타워, 타워2가 있을 경우
                 else if (tower2 != null)
                 {
-                    tower1.towerdamage += 1;
+                    tower.towerdamage += 1;
                     tower2.towerdamage += 1;
 
-                    Debug.Log("현재 타워1의 공격력: " + tower1.towerdamage);
+                    Debug.Log("현재 타워1의 공격력: " + tower.towerdamage);
                     Debug.Log("현재 타워2의 공격력: " + tower2.towerdamage);
                 }
                 // 타워만 있을 경우
                 else
                 {
-                    tower1.towerdamage += 1;
-                    Debug.Log("현재 타워의 공격력: " + tower1.towerdamage);
+                    tower.towerdamage += 1;
+                    Debug.Log("현재 타워의 공격력: " + tower.towerdamage);
                 }
 
                 Debug.Log("타워 공격력 증가!");
@@ -186,12 +186,12 @@ public class UiManagerController : MonoBehaviour
                 // 타워, 타워2, 타워3, 타워4가 있을 경우
                 if (tower2 != null && tower3 != null && tower4 != null)
                 {
-                    tower1.projectileSpeed += 2.0f;
+                    tower.projectileSpeed += 2.0f;
                     tower2.projectileSpeed += 2.0f;
                     tower3.projectileSpeed += 2.0f;
                     tower4.projectileSpeed += 2.0f;
 
-                    Debug.Log("현재 타워의 투사체 속도: " + tower1.projectileSpeed);
+                    Debug.Log("현재 타워의 투사체 속도: " + tower.projectileSpeed);
                     Debug.Log("현재 타워2의 투사체 속도: " + tower2.projectileSpeed);
                     Debug.Log("현재 타워3의 투사체 속도: " + tower3.projectileSpeed);
                     Debug.Log("현재 타워4의 투사체 속도: " + tower4.projectileSpeed);
@@ -199,17 +199,17 @@ public class UiManagerController : MonoBehaviour
                 // 타워, 타워2가 있을 경우
                 else if (tower2 != null)
                 {
-                    tower1.projectileSpeed += 2.0f;
+                    tower.projectileSpeed += 2.0f;
                     tower2.projectileSpeed += 2.0f;
-                    Debug.Log("현재 타워의 투사체 속도: " + tower1.projectileSpeed);
+                    Debug.Log("현재 타워의 투사체 속도: " + tower.projectileSpeed);
                     Debug.Log("현재 타워2의 투사체 속도: " + tower2.projectileSpeed);
                 }
                 // 타워만 있을 경우
                 else
                 {
-                    tower1.projectileSpeed += 2.0f;
+                    tower.projectileSpeed += 2.0f;
 
-                    Debug.Log("현재 타워의 투사체 속도: " + tower1.projectileSpeed);
+                    Debug.Log("현재 타워의 투사체 속도: " + tower.projectileSpeed);
                 }
 
                 Debug.Log("타워 투사체 속도 증가!");
@@ -218,12 +218,12 @@ public class UiManagerController : MonoBehaviour
                 // 타워, 타워2, 타워3, 타워4가 있을 경우
                 if (tower2 != null && tower3 != null && tower4 != null)
                 {
-                    tower1.currHp = tower1.maxHp;
+                    tower.currHp = tower.maxHp;
                     tower2.currHp = tower3.maxHp;
                     tower3.currHp = tower3.maxHp;
                     tower4.currHp = tower4.maxHp;
 
-                    tower1.hpfront.localScale = new Vector3(tower1.currHp / tower1.maxHp, 1.0f, 1.0f);
+                    tower.hpfront.localScale = new Vector3(tower.currHp / tower.maxHp, 1.0f, 1.0f);
                     tower2.hpfront.localScale = new Vector3(tower2.currHp / tower2.maxHp, 1.0f, 1.0f);
                     tower3.hpfront.localScale = new Vector3(tower3.currHp / tower3.maxHp, 1.0f, 1.0f);
                     tower4.hpfront.localScale = new Vector3(tower4.currHp / tower4.maxHp, 1.0f, 1.0f);
@@ -231,18 +231,18 @@ public class UiManagerController : MonoBehaviour
                 // 타워, 타워2가 있을 경우
                 else if (tower2 != null)
                 {
-                    tower1.currHp = tower1.maxHp;
+                    tower.currHp = tower.maxHp;
                     tower2.currHp = tower2.maxHp;
 
-                    tower1.hpfront.localScale = new Vector3(tower1.currHp / tower1.maxHp, 1.0f, 1.0f);
+                    tower.hpfront.localScale = new Vector3(tower.currHp / tower.maxHp, 1.0f, 1.0f);
                     tower2.hpfront.localScale = new Vector3(tower2.currHp / tower2.maxHp, 1.0f, 1.0f);
                 }
                 // 타워만 있을 경우
                 else
                 {
-                    tower1.currHp = tower1.maxHp;
+                    tower.currHp = tower.maxHp;
 
-                    tower1.hpfront.localScale = new Vector3(tower1.currHp / tower1.maxHp, 1.0f, 1.0f);
+                    tower.hpfront.localScale = new Vector3(tower.currHp / tower.maxHp, 1.0f, 1.0f);
                 }
 
                 Debug.Log("타워 회복!");

@@ -1554,7 +1554,7 @@ MonoBehaviour:
   TowerGiSpeed: {fileID: 402648320}
   TowerHpRecovery: {fileID: 918214332}
   playerController: {fileID: 1831792790}
-  tower1: {fileID: 976911620}
+  tower: {fileID: 976911620}
   tower2: {fileID: 0}
   tower3: {fileID: 0}
   tower4: {fileID: 0}
@@ -2213,7 +2213,7 @@ GameObject:
   - component: {fileID: 976911620}
   - component: {fileID: 976911621}
   m_Layer: 0
-  m_Name: tower1
+  m_Name: tower
   m_TagString: tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2380,10 +2380,10 @@ MonoBehaviour:
   fireRate: 2
   towerdamage: 1
   projectileSpeed: 5
-  TowerAttackSpeed: {fileID: 0}
-  TowerDamage: {fileID: 0}
-  TowerGiSpeed: {fileID: 0}
-  TowerHpRecovery: {fileID: 0}
+  TowerAttackSpeed: {fileID: 1314119318}
+  TowerDamage: {fileID: 1010638863}
+  TowerGiSpeed: {fileID: 402648320}
+  TowerHpRecovery: {fileID: 918214332}
 --- !u!95 &976911621
 Animator:
   serializedVersion: 5
@@ -4423,15 +4423,15 @@ MonoBehaviour:
   expbar: {fileID: 1298106040}
   expfront: {fileID: 1513355569}
   stageTimeLimit: 180
-  HpUp: {fileID: 0}
-  Recovery: {fileID: 0}
-  DamageUp: {fileID: 0}
-  SpeedUp: {fileID: 0}
-  TowerAttackSpeed: {fileID: 0}
-  TowerDamage: {fileID: 0}
-  TowerGiSpeed: {fileID: 0}
-  TowerHpRecovery: {fileID: 0}
-  levelUpPanel: {fileID: 0}
+  HpUp: {fileID: 1294922540}
+  Recovery: {fileID: 1353001728}
+  DamageUp: {fileID: 1010532919}
+  SpeedUp: {fileID: 123410477}
+  TowerAttackSpeed: {fileID: 1314119318}
+  TowerDamage: {fileID: 1010638863}
+  TowerGiSpeed: {fileID: 402648320}
+  TowerHpRecovery: {fileID: 918214332}
+  levelUpPanel: {fileID: 1284406984}
 --- !u!58 &1831792791
 CircleCollider2D:
   m_ObjectHideFlags: 0

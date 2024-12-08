@@ -9,7 +9,7 @@ public class MonsterController : MonoBehaviour
     private float currHp; //몬스터의 현재 hp
 
     GameObject player; //플레이어 오브젝트
-    GameObject tower1; //타워 오브젝트
+    GameObject tower; //타워 오브젝트
     GameObject tower2; //타워2 오브젝트
     GameObject tower3; //타워3 오브젝트
     GameObject tower4; //타워4 오브젝트
@@ -36,10 +36,10 @@ public class MonsterController : MonoBehaviour
     {
         Vector3 monsterPosition = transform.position; // 몬스터의 위치
         Vector3 playerPosition = player.GetComponent<Transform>().position; // 플레이어의 위치
-        Vector3 tower1Position = tower1.GetComponent<Transform>().position; // 타워의 위치
+        Vector3 towerPosition = tower.GetComponent<Transform>().position; // 타워의 위치
 
         float playerToMonster = Vector3.Distance(monsterPosition, playerPosition); // 몬스터와 플레이어간의 거리
-        float tower1ToMonster = Vector3.Distance(monsterPosition, tower1Position); // 몬스터와 타워간의 거리
+        float tower1ToMonster = Vector3.Distance(monsterPosition, towerPosition); // 몬스터와 타워간의 거리
 
         // 타워2, 타워3, 타워4가 있을 경우
         if (tower2 != null && tower3 != null && tower4 != null)
@@ -71,7 +71,7 @@ public class MonsterController : MonoBehaviour
             }
             else
             {
-                transform.position = Vector3.MoveTowards(monsterPosition, tower1Position, speed * Time.deltaTime); // 기본 타워로 가기
+                transform.position = Vector3.MoveTowards(monsterPosition, towerPosition, speed * Time.deltaTime); // 기본 타워로 가기
             }
         }
         // 타워, 타워2가 있을 경우
@@ -99,7 +99,7 @@ public class MonsterController : MonoBehaviour
             }
             else
             {
-                transform.position = Vector3.MoveTowards(monsterPosition, tower1Position, speed * Time.deltaTime); // 타워로 가기
+                transform.position = Vector3.MoveTowards(monsterPosition, towerPosition, speed * Time.deltaTime); // 타워로 가기
             }
         }
     }
@@ -107,7 +107,7 @@ public class MonsterController : MonoBehaviour
     void FindObjects() //오브젝트 찾기
     {
         player = GameObject.Find("player"); //플레이어 오브젝트 찾기
-        tower1 = GameObject.Find("tower1"); //타워 오브젝트 찾기
+        tower = GameObject.Find("tower"); //타워 오브젝트 찾기
         tower2 = GameObject.Find("tower2"); // 타워2 찾기 (없을 수도 있음)
         tower3 = GameObject.Find("tower3"); // 타워3 찾기 (없을 수도 있음)
         tower4 = GameObject.Find("tower4"); // 타워4 찾기 (없을 수도 있음)
