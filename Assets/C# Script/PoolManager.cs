@@ -55,4 +55,18 @@ public class PoolManager : MonoBehaviour
     {
         obj.SetActive(false);
     }
+
+    public void ClearAll ()
+    {
+        foreach (var pool in pools.Values) //딕셔너리에 있는 모든 풀에대해
+        {
+            while (pool.Count > 0) //풀에 오브젝트가 있다면
+            {
+                GameObject obj = pool[0]; //오브젝트를 꺼내서
+                pool.RemoveAt(0); //풀에서 삭제
+                Destroy(obj); //오브젝트 삭제
+            }
+        }
+        pools.Clear();
+    }
 }

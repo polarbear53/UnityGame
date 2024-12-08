@@ -12,7 +12,6 @@ TagManager:
   - no
   - pressure
   - exp
-  - towergi
   layers:
   - Default
   - TransparentFX
@@ -49,4 +48,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: UI
+    uniqueID: 608626111
     locked: 0
