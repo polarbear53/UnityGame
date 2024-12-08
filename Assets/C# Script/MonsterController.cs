@@ -107,11 +107,7 @@ public class MonsterController : MonoBehaviour
     void FindObjects() //오브젝트 찾기
     {
         player = GameObject.Find("player"); //플레이어 오브젝트 찾기
-<<<<<<< HEAD
         tower1 = GameObject.Find("tower1"); //타워 오브젝트 찾기
-=======
-        tower = GameObject.Find("tower"); //타워 오브젝트 찾기
->>>>>>> 5682c539b3cbbcd571f75bbdbbe293e1883d471d
         tower2 = GameObject.Find("tower2"); // 타워2 찾기 (없을 수도 있음)
         tower3 = GameObject.Find("tower3"); // 타워3 찾기 (없을 수도 있음)
         tower4 = GameObject.Find("tower4"); // 타워4 찾기 (없을 수도 있음)
