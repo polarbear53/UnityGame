@@ -63,8 +63,7 @@ public class UiManagerController : MonoBehaviour
     }
 
     public void ShowLevelUpPanel(int[] randomIndexes)
-    { 
-
+    {
         HpUp.onClick.AddListener(() => ApplyLevelUpEffect(0));
         Recovery.onClick.AddListener(() => ApplyLevelUpEffect(1));
         DamageUp.onClick.AddListener(() => ApplyLevelUpEffect(2));
@@ -332,6 +331,9 @@ public class UiManagerController : MonoBehaviour
         {
             int buttonIndex = selectedIndexes[i];
             Button button = buttons[buttonIndex];
+
+            // 텍스트 제거
+            button.GetComponentInChildren<TextMeshProUGUI>().text = string.Empty;
 
             // 위치 설정
             button.transform.position = positionList[i];
