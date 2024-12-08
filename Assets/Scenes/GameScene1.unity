@@ -1554,7 +1554,7 @@ MonoBehaviour:
   TowerGiSpeed: {fileID: 402648320}
   TowerHpRecovery: {fileID: 918214332}
   playerController: {fileID: 1831792790}
-  tower: {fileID: 976911620}
+  tower1: {fileID: 976911620}
   tower2: {fileID: 0}
   tower3: {fileID: 0}
   tower4: {fileID: 0}
@@ -2164,8 +2164,8 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 1
+  m_SortingLayerID: 608626111
+  m_SortingOrder: 100
   m_TargetDisplay: 0
 --- !u!1 &953293767
 GameObject:
@@ -2213,7 +2213,7 @@ GameObject:
   - component: {fileID: 976911620}
   - component: {fileID: 976911621}
   m_Layer: 0
-  m_Name: tower
+  m_Name: tower1
   m_TagString: tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4418,7 +4418,7 @@ MonoBehaviour:
   giPrefab: {fileID: 923976885994406078, guid: 52daac077dd62864689ff5666e900138, type: 3}
   hpbar: {fileID: 502682733}
   hpfront: {fileID: 1315034711}
-  maxExp: 10
+  maxExp: 150
   minExp: 0
   expbar: {fileID: 1298106040}
   expfront: {fileID: 1513355569}

@@ -9,7 +9,7 @@ public class MonsterController : MonoBehaviour
     private float currHp; //몬스터의 현재 hp
 
     GameObject player; //플레이어 오브젝트
-    GameObject tower; //타워 오브젝트
+    GameObject tower1; //타워 오브젝트
     GameObject tower2; //타워2 오브젝트
     GameObject tower3; //타워3 오브젝트
     GameObject tower4; //타워4 오브젝트
@@ -17,13 +17,9 @@ public class MonsterController : MonoBehaviour
     public RectTransform hpfront; // 체력바의 스케일을 조정해 닳게하기 위해
     public GameObject expPrefab; // 경험치 오브젝트
 
-    void Start()
+    void Awake()
     {
-        this.player = GameObject.Find("player"); //플레이어의 찾기
-        this.tower = GameObject.Find("tower"); //타워 찾기
-        this.tower2 = GameObject.Find("tower2"); //타워2 찾기 (없을 수도 있음)
-        this.tower3 = GameObject.Find("tower3"); //타워3 찾기 (없을 수도 있음)
-        this.tower4 = GameObject.Find("tower4"); //타워3 찾기 (없을 수도 있음)
+        FindObjects();
         InitMonster(); //몬스터 초기화
 
     }
@@ -40,10 +36,10 @@ public class MonsterController : MonoBehaviour
     {
         Vector3 monsterPosition = transform.position; // 몬스터의 위치
         Vector3 playerPosition = player.GetComponent<Transform>().position; // 플레이어의 위치
-        Vector3 towerPosition = tower.GetComponent<Transform>().position; // 타워의 위치
+        Vector3 tower1Position = tower1.GetComponent<Transform>().position; // 타워의 위치
 
         float playerToMonster = Vector3.Distance(monsterPosition, playerPosition); // 몬스터와 플레이어간의 거리
-        float towerToMonster = Vector3.Distance(monsterPosition, towerPosition); // 몬스터와 타워간의 거리
+        float tower1ToMonster = Vector3.Distance(monsterPosition, tower1Position); // 몬스터와 타워간의 거리
 
         // 타워2, 타워3, 타워4가 있을 경우
         if (tower2 != null && tower3 != null && tower4 != null)
@@ -57,25 +53,25 @@ public class MonsterController : MonoBehaviour
             float tower4ToMonster = Vector3.Distance(monsterPosition, tower4Position); // 몬스터와 타워4간의 거리
 
             // 타워들과 플레이어의 거리 비교
-            if (towerToMonster > playerToMonster && tower2ToMonster > playerToMonster && tower3ToMonster > playerToMonster && tower4ToMonster > playerToMonster)
+            if (tower1ToMonster > playerToMonster && tower2ToMonster > playerToMonster && tower3ToMonster > playerToMonster && tower4ToMonster > playerToMonster)
             {
                 transform.position = Vector3.MoveTowards(monsterPosition, playerPosition, speed * Time.deltaTime); // 플레이어를 따라가기
             }
-            else if (tower2ToMonster < towerToMonster && tower2ToMonster < tower3ToMonster && tower2ToMonster < tower4ToMonster)
+            else if (tower2ToMonster < tower1ToMonster && tower2ToMonster < tower3ToMonster && tower2ToMonster < tower4ToMonster)
             {
                 transform.position = Vector3.MoveTowards(monsterPosition, tower2Position, speed * Time.deltaTime); // 타워2로 가기
             }
-            else if (tower3ToMonster < towerToMonster && tower3ToMonster < tower2ToMonster && tower3ToMonster < tower4ToMonster)
+            else if (tower3ToMonster < tower1ToMonster && tower3ToMonster < tower2ToMonster && tower3ToMonster < tower4ToMonster)
             {
                 transform.position = Vector3.MoveTowards(monsterPosition, tower3Position, speed * Time.deltaTime); // 타워3로 가기
             }
-            else if (tower4ToMonster < towerToMonster && tower4ToMonster < tower2ToMonster && tower4ToMonster < tower3ToMonster)
+            else if (tower4ToMonster < tower1ToMonster && tower4ToMonster < tower2ToMonster && tower4ToMonster < tower3ToMonster)
             {
                 transform.position = Vector3.MoveTowards(monsterPosition, tower4Position, speed * Time.deltaTime); // 타워4로 가기
             }
             else
             {
-                transform.position = Vector3.MoveTowards(monsterPosition, towerPosition, speed * Time.deltaTime); // 기본 타워로 가기
+                transform.position = Vector3.MoveTowards(monsterPosition, tower1Position, speed * Time.deltaTime); // 기본 타워로 가기
             }
         }
         // 타워, 타워2가 있을 경우
@@ -84,7 +80,7 @@ public class MonsterController : MonoBehaviour
             Vector3 tower2Position = tower2.GetComponent<Transform>().position; // 타워2의 위치
             float tower2ToMonster = Vector3.Distance(monsterPosition, tower2Position); // 몬스터와 타워2간의 거리
 
-            if (towerToMonster > playerToMonster)
+            if (tower1ToMonster > playerToMonster)
             {
                 transform.position = Vector3.MoveTowards(monsterPosition, playerPosition, speed * Time.deltaTime); // 플레이어를 따라가기
             }
@@ -97,15 +93,28 @@ public class MonsterController : MonoBehaviour
         // 타워만 있을 경우
         else
         {
-            if (towerToMonster > playerToMonster)
+            if (tower1ToMonster > playerToMonster)
             {
                 transform.position = Vector3.MoveTowards(monsterPosition, playerPosition, speed * Time.deltaTime); // 플레이어를 따라가기
             }
             else
             {
-                transform.position = Vector3.MoveTowards(monsterPosition, towerPosition, speed * Time.deltaTime); // 타워로 가기
+                transform.position = Vector3.MoveTowards(monsterPosition, tower1Position, speed * Time.deltaTime); // 타워로 가기
             }
         }
+    }
+
+    void FindObjects() //오브젝트 찾기
+    {
+        player = GameObject.Find("player"); //플레이어 오브젝트 찾기
+<<<<<<< HEAD
+        tower1 = GameObject.Find("tower1"); //타워 오브젝트 찾기
+=======
+        tower = GameObject.Find("tower"); //타워 오브젝트 찾기
+>>>>>>> 5682c539b3cbbcd571f75bbdbbe293e1883d471d
+        tower2 = GameObject.Find("tower2"); // 타워2 찾기 (없을 수도 있음)
+        tower3 = GameObject.Find("tower3"); // 타워3 찾기 (없을 수도 있음)
+        tower4 = GameObject.Find("tower4"); // 타워4 찾기 (없을 수도 있음)
     }
 
     void InitMonster() //몬스터가 생성, 활성화 될때 초기화 해주는 함수
@@ -146,6 +155,7 @@ public class MonsterController : MonoBehaviour
 
     private void OnEnable()
     {
+        FindObjects(); // 오브젝트 찾기
         InitMonster(); // 활성화될 때 몬스터 초기화
     }
 

@@ -15,10 +15,10 @@ public class UiManagerController : MonoBehaviour
     public Button TowerAttackSpeed, TowerDamage, TowerGiSpeed, TowerHpRecovery; // 레벨업 선택지 버튼(타워)
 
     public PlayerController playerController; // 플레이어에 접근
-    public TowerController tower; // 타워에 접근
-    public TowerController tower2; // 타워에 접근
-    public TowerController tower3; // 타워에 접근
-    public TowerController tower4; // 타워에 접근
+    public TowerController tower1; // 타워1에 접근
+    public TowerController tower2; // 타워2에 접근
+    public TowerController tower3; // 타워3에 접근
+    public TowerController tower4; // 타워4에 접근
 
     void Update()
     {
@@ -48,7 +48,7 @@ public class UiManagerController : MonoBehaviour
     private void Awake()
     {
         playerController = FindObjectOfType<PlayerController>();
-        tower = FindObjectOfType<TowerController>();
+        tower1 = FindObjectOfType<TowerController>();
 
         if (instance == null)
         {
@@ -132,7 +132,7 @@ public class UiManagerController : MonoBehaviour
                 // 타워, 타워2, 타워3, 타워4가 있을 경우
                 if (tower2 != null && tower3 != null && tower4 != null)
                 {
-                    tower.fireRate += 0.5f;
+                    tower1.fireRate += 0.5f;
                     tower2.fireRate += 0.5f;
                     tower3.fireRate += 0.5f;
                     tower4.fireRate += 0.5f;
@@ -140,13 +140,13 @@ public class UiManagerController : MonoBehaviour
                 // 타워, 타워2가 있을 경우
                 else if (tower2 != null)
                 {
-                    tower.fireRate += 0.5f;
+                    tower1.fireRate += 0.5f;
                     tower2.fireRate += 0.5f;
                 }
                 // 타워만 있을 경우
                 else
                 {
-                    tower.fireRate += 0.5f;
+                    tower1.fireRate += 0.5f;
                 }
                 Debug.Log("타워 투사체 발사 속도 증가!");
                 break;
@@ -154,12 +154,12 @@ public class UiManagerController : MonoBehaviour
                 // 타워, 타워2, 타워3, 타워4가 있을 경우
                 if (tower2 != null && tower3 != null && tower4 != null)
                 {
-                    tower.towerdamage += 1;
+                    tower1.towerdamage += 1;
                     tower2.towerdamage += 1;
                     tower3.towerdamage += 1;
                     tower4.towerdamage += 1;
 
-                    Debug.Log("현재 타워의 공격력: " + tower.towerdamage);
+                    Debug.Log("현재 타워1의 공격력: " + tower1.towerdamage);
                     Debug.Log("현재 타워2의 공격력: " + tower2.towerdamage);
                     Debug.Log("현재 타워3의 공격력: " + tower3.towerdamage);
                     Debug.Log("현재 타워4의 공격력: " + tower4.towerdamage);
@@ -167,17 +167,17 @@ public class UiManagerController : MonoBehaviour
                 // 타워, 타워2가 있을 경우
                 else if (tower2 != null)
                 {
-                    tower.towerdamage += 1;
+                    tower1.towerdamage += 1;
                     tower2.towerdamage += 1;
 
-                    Debug.Log("현재 타워의 공격력: " + tower.towerdamage);
+                    Debug.Log("현재 타워1의 공격력: " + tower1.towerdamage);
                     Debug.Log("현재 타워2의 공격력: " + tower2.towerdamage);
                 }
                 // 타워만 있을 경우
                 else
                 {
-                    tower.towerdamage += 1;
-                    Debug.Log("현재 타워의 공격력: " + tower.towerdamage);
+                    tower1.towerdamage += 1;
+                    Debug.Log("현재 타워의 공격력: " + tower1.towerdamage);
                 }
 
                 Debug.Log("타워 공격력 증가!");
@@ -186,12 +186,12 @@ public class UiManagerController : MonoBehaviour
                 // 타워, 타워2, 타워3, 타워4가 있을 경우
                 if (tower2 != null && tower3 != null && tower4 != null)
                 {
-                    tower.projectileSpeed += 2.0f;
+                    tower1.projectileSpeed += 2.0f;
                     tower2.projectileSpeed += 2.0f;
                     tower3.projectileSpeed += 2.0f;
                     tower4.projectileSpeed += 2.0f;
 
-                    Debug.Log("현재 타워의 투사체 속도: " + tower.projectileSpeed);
+                    Debug.Log("현재 타워의 투사체 속도: " + tower1.projectileSpeed);
                     Debug.Log("현재 타워2의 투사체 속도: " + tower2.projectileSpeed);
                     Debug.Log("현재 타워3의 투사체 속도: " + tower3.projectileSpeed);
                     Debug.Log("현재 타워4의 투사체 속도: " + tower4.projectileSpeed);
@@ -199,17 +199,17 @@ public class UiManagerController : MonoBehaviour
                 // 타워, 타워2가 있을 경우
                 else if (tower2 != null)
                 {
-                    tower.projectileSpeed += 2.0f;
+                    tower1.projectileSpeed += 2.0f;
                     tower2.projectileSpeed += 2.0f;
-                    Debug.Log("현재 타워의 투사체 속도: " + tower.projectileSpeed);
+                    Debug.Log("현재 타워의 투사체 속도: " + tower1.projectileSpeed);
                     Debug.Log("현재 타워2의 투사체 속도: " + tower2.projectileSpeed);
                 }
                 // 타워만 있을 경우
                 else
                 {
-                    tower.projectileSpeed += 2.0f;
+                    tower1.projectileSpeed += 2.0f;
 
-                    Debug.Log("현재 타워의 투사체 속도: " + tower.projectileSpeed);
+                    Debug.Log("현재 타워의 투사체 속도: " + tower1.projectileSpeed);
                 }
 
                 Debug.Log("타워 투사체 속도 증가!");
@@ -218,12 +218,12 @@ public class UiManagerController : MonoBehaviour
                 // 타워, 타워2, 타워3, 타워4가 있을 경우
                 if (tower2 != null && tower3 != null && tower4 != null)
                 {
-                    tower.currHp = tower.maxHp;
+                    tower1.currHp = tower1.maxHp;
                     tower2.currHp = tower3.maxHp;
                     tower3.currHp = tower3.maxHp;
                     tower4.currHp = tower4.maxHp;
 
-                    tower.hpfront.localScale = new Vector3(tower.currHp / tower.maxHp, 1.0f, 1.0f);
+                    tower1.hpfront.localScale = new Vector3(tower1.currHp / tower1.maxHp, 1.0f, 1.0f);
                     tower2.hpfront.localScale = new Vector3(tower2.currHp / tower2.maxHp, 1.0f, 1.0f);
                     tower3.hpfront.localScale = new Vector3(tower3.currHp / tower3.maxHp, 1.0f, 1.0f);
                     tower4.hpfront.localScale = new Vector3(tower4.currHp / tower4.maxHp, 1.0f, 1.0f);
@@ -231,18 +231,18 @@ public class UiManagerController : MonoBehaviour
                 // 타워, 타워2가 있을 경우
                 else if (tower2 != null)
                 {
-                    tower.currHp = tower.maxHp;
-                    tower2.currHp = tower.maxHp;
+                    tower1.currHp = tower1.maxHp;
+                    tower2.currHp = tower2.maxHp;
 
-                    tower.hpfront.localScale = new Vector3(tower.currHp / tower.maxHp, 1.0f, 1.0f);
+                    tower1.hpfront.localScale = new Vector3(tower1.currHp / tower1.maxHp, 1.0f, 1.0f);
                     tower2.hpfront.localScale = new Vector3(tower2.currHp / tower2.maxHp, 1.0f, 1.0f);
                 }
                 // 타워만 있을 경우
                 else
                 {
-                    tower.currHp = tower.maxHp;
+                    tower1.currHp = tower1.maxHp;
 
-                    tower.hpfront.localScale = new Vector3(tower.currHp / tower.maxHp, 1.0f, 1.0f);
+                    tower1.hpfront.localScale = new Vector3(tower1.currHp / tower1.maxHp, 1.0f, 1.0f);
                 }
 
                 Debug.Log("타워 회복!");
@@ -273,58 +273,60 @@ public class UiManagerController : MonoBehaviour
         // 버튼이 배치될 위치들
         Vector3[] positions = new Vector3[]
         {
-            new Vector3(cameraCenter.x - 15, cameraCenter.y, 5),
-            new Vector3(cameraCenter.x, cameraCenter.y, 5),
-            new Vector3(cameraCenter.x + 15, cameraCenter.y, 5)
+        new Vector3(cameraCenter.x - 15, cameraCenter.y, 5),
+        new Vector3(cameraCenter.x, cameraCenter.y, 5),
+        new Vector3(cameraCenter.x + 15, cameraCenter.y, 5)
         };
 
         // 버튼 배열
         Button[] buttons = new Button[]
         {
-            HpUp,
-            Recovery,
-            DamageUp,
-            SpeedUp,
-            TowerAttackSpeed,
-            TowerDamage,
-            TowerGiSpeed,
-            TowerHpRecovery
+        HpUp,
+        Recovery,
+        DamageUp,
+        SpeedUp,
+        TowerAttackSpeed,
+        TowerDamage,
+        TowerGiSpeed,
+        TowerHpRecovery
         };
 
-        // 버튼 배열 크기에 맞춰서 랜덤으로 3개만 선택
+        // 버튼 배열 크기에 맞춰 랜덤으로 3개만 선택
+        if (randomIndexes.Length < 3)
+        {
+            Debug.LogError("randomIndexes 배열 크기가 3보다 작습니다!");
+            return;
+        }
+
+        List<int> selectedIndexes = randomIndexes.Take(3).ToList();
+
+        // 위치 배열을 랜덤하게 섞기
         System.Random rand = new System.Random();
-        List<int> selectedIndexes = new List<int>();
-        while (selectedIndexes.Count < 3)
+        List<Vector3> positionList = positions.OrderBy(x => rand.Next()).ToList();
+
+        // 선택된 버튼을 활성화하고 위치와 텍스트를 설정
+        for (int i = 0; i < selectedIndexes.Count; i++)
         {
-            int randomIndex = rand.Next(randomIndexes.Length);
-            if (!selectedIndexes.Contains(randomIndex)) // 중복 방지
+            int buttonIndex = selectedIndexes[i];
+            Button button = buttons[buttonIndex];
+
+            // 텍스트 제거
+            button.GetComponentInChildren<TextMeshProUGUI>().text = string.Empty;
+
+            // 위치 설정
+            button.transform.position = positionList[i];
+
+            // 버튼 활성화
+            button.gameObject.SetActive(true);
+        }
+
+        // 나머지 버튼 비활성화
+        for (int i = 0; i < buttons.Length; i++)
+        {
+            if (!selectedIndexes.Contains(i))
             {
-                selectedIndexes.Add(randomIndex);
+                buttons[i].gameObject.SetActive(false);
             }
-        }
-
-        // 선택된 버튼 텍스트 업데이트
-        string[] options = new string[]
-        {
-        "타워 투사체 속도 up", "플레이어 이동 속도 up", "플레이어 최대 체력 up",
-        "타워 투사체 발사 속도 up", "플레이어 HP 회복", "HP 낮은 타워 회복",
-        "플레이어 공격력 up", "타워 공격력 up"
-        };
-
-        // 각 버튼에 해당하는 텍스트 설정
-        for (int i = 0; i < selectedIndexes.Count; i++)
-        {
-            buttons[selectedIndexes[i]].GetComponentInChildren<TextMeshProUGUI>().text = options[i];
-        }
-
-        // 위치 배열을 랜덤하게 섞기 위해 List로 변환
-        List<Vector3> positionList = new List<Vector3>(positions);
-        positionList = positionList.OrderBy(x => rand.Next()).ToList(); // 랜덤 섞기
-
-        // 선택된 버튼들에 랜덤 위치 할당
-        for (int i = 0; i < selectedIndexes.Count; i++)
-        {
-            buttons[selectedIndexes[i]].transform.position = positionList[i];
         }
     }
 }

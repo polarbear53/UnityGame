@@ -478,7 +478,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 589b417195bb4e748b182c82e22e07de, type: 3}
+  m_Sprite: {fileID: 21300000, guid: af2ed8912fd3a5b4c92685fbff1d7750, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -721,24 +721,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '
-
-
-
-
-
-
-
-    Tower
-
-
-
-
-
-    Up
-
-
-    Damage'
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
@@ -918,7 +901,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b6134c1f9fbc1974194a516550846cab, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 15ca9a0e41821ab49994580a0da7b2a8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1765,7 +1748,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9a9695624e53dcd44ba8c64963abcc18, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 60ed60953abc6614babe3bcb023e2a5a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2202,7 +2185,7 @@ GameObject:
   - component: {fileID: 976911620}
   - component: {fileID: 976911621}
   m_Layer: 0
-  m_Name: tower
+  m_Name: tower1
   m_TagString: tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2841,7 +2824,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\n\n\n\n\n\n\nTower\n\n\n\n\nUp \n\nAttack Speed"
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
@@ -3245,8 +3228,8 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 1
+  m_SortingLayerID: 608626111
+  m_SortingOrder: 100
   m_TargetDisplay: 0
 --- !u!1 &1366488027
 GameObject:
@@ -3305,24 +3288,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '
-
-
-
-
-
-
-
-    Tower
-
-
-
-
-
-    Hp
-
-
-    Recovery'
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
@@ -3533,7 +3499,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f87995cee6106ad489d16dc5efcba9b9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3d38cd2d22a46ab4095d232a41c40135, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3608,16 +3574,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'player
-
-
-
-
-
-    Up
-
-
-    Speed '
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
@@ -3733,7 +3690,7 @@ PrefabInstance:
     - target: {fileID: 3875137411766302972, guid: 124d4b297aa1ab944ab3db60c07d1c3e, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 954c21e823ac0834786d712121905999, type: 3}
+      objectReference: {fileID: 21300000, guid: 3f1d1760b7636894f96f23bbf75c544c, type: 3}
     - target: {fileID: 4294049193954744310, guid: 124d4b297aa1ab944ab3db60c07d1c3e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 0
@@ -3750,6 +3707,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 5167856615483997231, guid: 124d4b297aa1ab944ab3db60c07d1c3e, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: ae3b7143e2fd00b42ab9f9d36ccb853d, type: 3}
     - target: {fileID: 5274077309445144139, guid: 124d4b297aa1ab944ab3db60c07d1c3e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 0
@@ -3769,7 +3730,7 @@ PrefabInstance:
     - target: {fileID: 6345289278858898970, guid: 124d4b297aa1ab944ab3db60c07d1c3e, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 3c4dda64ae3617f4d971c3c6e8844d84, type: 3}
+      objectReference: {fileID: 21300000, guid: b111437232ef5fb48974f63fa06c06f5, type: 3}
     - target: {fileID: 6797982357289474289, guid: 124d4b297aa1ab944ab3db60c07d1c3e, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -32.8
@@ -3780,24 +3741,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6876763185554839570, guid: 124d4b297aa1ab944ab3db60c07d1c3e, type: 3}
       propertyPath: m_text
-      value: '
-
-
-
-
-
-
-
-        player
-
-
-
-
-
-        Up
-
-
-        Damage'
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6876763185554839570, guid: 124d4b297aa1ab944ab3db60c07d1c3e, type: 3}
       propertyPath: m_fontAsset
@@ -3833,24 +3777,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8213490788214229315, guid: 124d4b297aa1ab944ab3db60c07d1c3e, type: 3}
       propertyPath: m_text
-      value: '
-
-
-
-
-
-
-
-        player
-
-
-
-
-
-        Hp
-
-
-        Recovery'
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8213490788214229315, guid: 124d4b297aa1ab944ab3db60c07d1c3e, type: 3}
       propertyPath: m_fontAsset
@@ -4104,24 +4031,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '
-
-
-
-
-
-
-
-    Tower
-
-
-
-
-
-    Up
-
-
-    Gi Speed'
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
@@ -4387,7 +4297,7 @@ MonoBehaviour:
   TowerGiSpeed: {fileID: 1393552151}
   TowerHpRecovery: {fileID: 99666267}
   playerController: {fileID: 1831792790}
-  tower: {fileID: 976911620}
+  tower1: {fileID: 976911620}
   tower2: {fileID: 448382841}
   tower3: {fileID: 0}
   tower4: {fileID: 0}
@@ -4509,7 +4419,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d75ff9310af47f449a10a543d33eea61, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 556fd4206c03cc143ac86512936aa4f1, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4664,11 +4574,20 @@ MonoBehaviour:
   giPrefab: {fileID: 923976885994406078, guid: 52daac077dd62864689ff5666e900138, type: 3}
   hpbar: {fileID: 502682733}
   hpfront: {fileID: 1315034711}
-  maxExp: 200
+  maxExp: 150
   minExp: 1
   expbar: {fileID: 0}
   expfront: {fileID: 0}
   stageTimeLimit: 180
+  HpUp: {fileID: 0}
+  Recovery: {fileID: 0}
+  DamageUp: {fileID: 0}
+  SpeedUp: {fileID: 0}
+  TowerAttackSpeed: {fileID: 0}
+  TowerDamage: {fileID: 0}
+  TowerGiSpeed: {fileID: 0}
+  TowerHpRecovery: {fileID: 0}
+  levelUpPanel: {fileID: 0}
 --- !u!58 &1831792791
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -4898,16 +4817,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'player
-
-
-
-
-
-    Up
-
-
-    Hp '
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
