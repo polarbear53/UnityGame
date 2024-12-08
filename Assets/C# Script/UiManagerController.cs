@@ -62,17 +62,8 @@ public class UiManagerController : MonoBehaviour
         HideLevelUpPanel(); // 초기에는 레벨업 패널 숨기기
     }
 
-    public void ShowLevelUpPanel(string[] options, int[] randomIndexes)
+    public void ShowLevelUpPanel(int[] randomIndexes)
     {
-        HpUp.GetComponentInChildren<TextMeshProUGUI>().text = options[randomIndexes[0]];
-        Recovery.GetComponentInChildren<TextMeshProUGUI>().text = options[randomIndexes[1]];
-        DamageUp.GetComponentInChildren<TextMeshProUGUI>().text = options[randomIndexes[2]];
-        SpeedUp.GetComponentInChildren<TextMeshProUGUI>().text = options[randomIndexes[3]];
-        TowerAttackSpeed.GetComponentInChildren<TextMeshProUGUI>().text = options[randomIndexes[4]];
-        TowerDamage.GetComponentInChildren<TextMeshProUGUI>().text = options[randomIndexes[5]];
-        TowerGiSpeed.GetComponentInChildren<TextMeshProUGUI>().text = options[randomIndexes[6]];
-        TowerHpRecovery.GetComponentInChildren<TextMeshProUGUI>().text = options[randomIndexes[7]];
-
         HpUp.onClick.AddListener(() => ApplyLevelUpEffect(0));
         Recovery.onClick.AddListener(() => ApplyLevelUpEffect(1));
         DamageUp.onClick.AddListener(() => ApplyLevelUpEffect(2));

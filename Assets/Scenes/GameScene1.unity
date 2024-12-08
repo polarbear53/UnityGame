@@ -4773,7 +4773,7 @@ MonoBehaviour:
   giPrefab: {fileID: 923976885994406078, guid: 52daac077dd62864689ff5666e900138, type: 3}
   hpbar: {fileID: 502682733}
   hpfront: {fileID: 1315034711}
-  maxExp: 150
+  maxExp: 10
   minExp: 0
   expbar: {fileID: 1298106040}
   expfront: {fileID: 1513355569}
