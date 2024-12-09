@@ -208,10 +208,10 @@ public class UiManagerController : MonoBehaviour
                 // 타워, 타워2, 타워3, 타워4가 있을 경우
                 if (tower2 != null && tower3 != null && tower4 != null)
                 {
-                    tower.projectileSpeed += 2.0f;
-                    tower2.projectileSpeed += 2.0f;
-                    tower3.projectileSpeed += 2.0f;
-                    tower4.projectileSpeed += 2.0f;
+                    tower.projectileSpeed += 4.0f;
+                    tower2.projectileSpeed += 4.0f;
+                    tower3.projectileSpeed += 4.0f;
+                    tower4.projectileSpeed += 4.0f;
 
                     Debug.Log("현재 타워의 투사체 속도: " + tower.projectileSpeed);
                     Debug.Log("현재 타워2의 투사체 속도: " + tower2.projectileSpeed);
@@ -221,15 +221,15 @@ public class UiManagerController : MonoBehaviour
                 // 타워, 타워2가 있을 경우
                 else if (tower2 != null)
                 {
-                    tower.projectileSpeed += 2.0f;
-                    tower2.projectileSpeed += 2.0f;
+                    tower.projectileSpeed += 4.0f;
+                    tower2.projectileSpeed += 4.0f;
                     Debug.Log("현재 타워의 투사체 속도: " + tower.projectileSpeed);
                     Debug.Log("현재 타워2의 투사체 속도: " + tower2.projectileSpeed);
                 }
                 // 타워만 있을 경우
                 else
                 {
-                    tower.projectileSpeed += 2.0f;
+                    tower.projectileSpeed += 4.0f;
 
                     Debug.Log("현재 타워의 투사체 속도: " + tower.projectileSpeed);
                 }

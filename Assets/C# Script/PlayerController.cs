@@ -18,15 +18,15 @@ public class PlayerController : MonoBehaviour
     public float currHp; //플레이어의 현재 hp
     public float maxHp = 10f; //플레이어의 최대 체력
     public float giSpeed = 30.0f; //기의 속도
-    public float ShootRate = 0.5f; //다음 기를 쏘기까지 걸리는 딜레이 시간
-    public float giDamage = 1f; //기의 공격력
+    public float ShootRate; //다음 기를 쏘기까지 걸리는 딜레이 시간
+    public float giDamage; //기의 공격력
     private float nextShootTime = 0f; //시간 계산
 
     public GameObject giPrefab; //쏠 기
     public GameObject hpbar; // 체력바를 보이거나 보이지 않게 하기 위해
     public RectTransform hpfront; // 체력바의 스케일을 조정해 닳게하기 위해
 
-    private float currExp; //플레이어의 현재 Exp
+    public float currExp; //플레이어의 현재 Exp
     public float maxExp = 200f; // Exp 최대치
     public float minExp = 1f; // Exp 최소치
     public GameObject expbar; // 경험치바를 보이거나 보이지 않게 하기 위해
@@ -67,6 +67,9 @@ public class PlayerController : MonoBehaviour
         timerMaxDuration = stageTimeLimit; // 스테이지 제한 시간
         timerCurrentTime = stageTimeLimit; // 초기 시간은 최대 시간과 동일
         UpdateTimerBar(); // 타이머 바 초기화
+
+        ShootRate = 0.3f;
+        giDamage = 1f;
     }
 
     void Update()
@@ -100,7 +103,7 @@ public class PlayerController : MonoBehaviour
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition); //마우스가 클릭된 위치 구하기
         dir = (mousePosition - pos).normalized; ////마우스가 클릭되었을 때 위치와 플레이어의 위치 간의 방향 구하기
 
-        if (Input.GetMouseButtonDown(0) && Time.time > nextShootTime) // 마우스를 좌클릭 했을때, 딜레이 시간이 지나면
+        if (Input.GetMouseButton(0) && Time.time > nextShootTime) // 마우스를 좌클릭 했을때, 딜레이 시간이 지나면
         {
             nextShootTime = Time.time + ShootRate; //딜레이 시간 재조정
             Shoot(); //쏘기
@@ -183,13 +186,6 @@ public class PlayerController : MonoBehaviour
         currExp += exp; // 경험치 증가
         UpdateExpBar(); // 경험치바 업데이트
 
-        // 경험치가 최대치에 도달하면 레벨업 처리
-        if (currExp >= maxExp)
-        {
-            currExp -= maxExp; // 초과된 경험치 유지
-            LevelUp();         // 레벨업 메서드 호출
-        }
-
         // 경험치 UI 업데이트 (필요하다면 구현)
         Debug.Log($"Current Experience: {currExp}");
     }
@@ -210,6 +206,13 @@ public class PlayerController : MonoBehaviour
     }
     void FixedUpdate() //Update함수는 프레임이 일정하지 않기 때문에 rigidbody를 다루는 코드를 설정하는 함수
     {
+        // 경험치가 최대치에 도달하면 레벨업 처리
+        if (currExp >= maxExp)
+        {
+            currExp -= maxExp; // 초과된 경험치 유지
+            LevelUp();         // 레벨업 메서드 호출
+        }
+
         if (!isLevelingUp)
         {
             rigid2D.MovePosition(rigid2D.position + moveVelocity * Time.fixedDeltaTime);
@@ -218,22 +221,21 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("eat")) //eat 태그를 가진 오브젝트와 부딪히면
+        if (collision.gameObject.CompareTag("monster")) //eat 태그를 가진 오브젝트와 부딪히면
         {
             if (currHp > 0)
             { //현재 체력이 남아있다면
-                currHp -= 1.0f; //체력 1A기
+                currHp -= collision.gameObject.GetComponent<MonsterController>().dmg; //체력 1A기
                 hpfront.localScale = new Vector3(currHp / maxHp, 1.0f, 1.0f); // 현재 체력을 최대 체력으로 나누어서 hp조절
 
                 PoolManager.instance.ReturnPreFab(collision.gameObject); //충돌한 몬스터 비활성화(풀링)
 
             }
-
-            else
+            if(currHp <= 0)
             {
                 GameOver();
             }
-        }
+        }/*
         if (collision.gameObject.CompareTag("gohome")) //gohome 태그를 가진 오브젝트와 부딪히면
         {
             if (currHp > 0)
@@ -296,7 +298,7 @@ public class PlayerController : MonoBehaviour
             {
                 GameOver();
             }
-        }
+        }*/
         if (collision.gameObject.CompareTag("exp"))
         {
             GainExperience(10); // 경험치 획득

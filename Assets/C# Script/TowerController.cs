@@ -28,7 +28,7 @@ public class TowerController : MonoBehaviour
     void Start()
     {
         attackRange = 30f;
-        fireRate = 3f;
+        fireRate = 2f;
         towerdamage = 1f;
         projectileSpeed = 10f;
 
@@ -42,12 +42,12 @@ public class TowerController : MonoBehaviour
         fireCooldown -= Time.deltaTime;
         if (fireCooldown <= 0f)
         {
-            GameObject target = FindgohomeInRange();
+            GameObject target = FindMonsterInRange();
             if (target != null)
             {
                 FireProjectile(target);
                 fireCooldown = fireRate; // 쿨다운 초기화
-            }
+            }/*
             GameObject target2 = FindeatInRange();
             if (target2 != null)
             {
@@ -71,12 +71,12 @@ public class TowerController : MonoBehaviour
             {
                 FireProjectile(target5);
                 fireCooldown = fireRate; // 쿨다운 초기화
-            }
+            }*/
         }
     }
 
     // "eat" 몬스터 추적
-    GameObject FindeatInRange()
+    GameObject FindMonsterInRange()
     {
         Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, attackRange);
 
@@ -85,7 +85,7 @@ public class TowerController : MonoBehaviour
 
         foreach (Collider2D hit in hits)
         {
-            if (hit.CompareTag("eat"))
+            if (hit.CompareTag("monster"))
             {
                 float distance = Vector3.Distance(transform.position, hit.transform.position);
                 if (distance < closestDistance)
@@ -98,7 +98,7 @@ public class TowerController : MonoBehaviour
 
         return closestGohome;
     }
-
+    /*
     // "pressure" 몬스터 추적
     GameObject FindpressureInRange()
     {
@@ -148,7 +148,7 @@ public class TowerController : MonoBehaviour
     }
 
     // "what" 몬스터 추적
-    GameObject FindwhatInRange()
+    GameObject FindMonsterInRange()
     {
         Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, attackRange);
 
@@ -157,7 +157,7 @@ public class TowerController : MonoBehaviour
 
         foreach (Collider2D hit in hits)
         {
-            if (hit.CompareTag("what"))
+            if (hit.CompareTag("monster"))
             {
                 float distance = Vector3.Distance(transform.position, hit.transform.position);
                 if (distance < closestDistance)
@@ -194,7 +194,7 @@ public class TowerController : MonoBehaviour
 
         return closestGohome;
     }
-
+    */
     void FireProjectile(GameObject target)
     {
         GameObject projectile = PoolManager.instance.GetPreFab(towergiPrefab);
@@ -204,14 +204,18 @@ public class TowerController : MonoBehaviour
         {
             projectileScript.SetTarget(target);
         }
+        // 타겟 방향으로 이동
+        Vector3 direction = (target.transform.position - transform.position).normalized;
+        //transform.position += direction * speed * Time.deltaTime;
+        projectile.GetComponent<Rigidbody2D>().AddForce(direction * projectileSpeed, ForceMode2D.Impulse);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("eat"))
+        if (collision.gameObject.CompareTag("monster"))
         {
-            TakeDamage(1.0f, collision.gameObject);
-        }
+            TakeDamage(collision.gameObject.GetComponent<MonsterController>().dmg, collision.gameObject);
+        }/*
         else if (collision.gameObject.CompareTag("gohome"))
         {
             TakeDamage(1.0f, collision.gameObject);
@@ -227,7 +231,7 @@ public class TowerController : MonoBehaviour
         else if (collision.gameObject.CompareTag("pressure"))
         {
             TakeDamage(5.0f, collision.gameObject);
-        }
+        }*/
     }
 
     void TakeDamage(float damage, GameObject monster)
@@ -238,7 +242,7 @@ public class TowerController : MonoBehaviour
             hpfront.localScale = new Vector3(currHp / maxHp, 1.0f, 1.0f);
             PoolManager.instance.ReturnPreFab(monster);
         }
-        else
+        if (currHp <= 0)
         {
             GameOver();
         }

@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class MonsterController : MonoBehaviour
 {
-    float speed; // 몬스터의 속도
+    public float speed; // 몬스터의 속도
     public float maxHp; //몬스터의 최대 체력
     private float currHp; //몬스터의 현재 hp
+    public float dmg;
 
     GameObject player; //플레이어 오브젝트
     GameObject tower; //타워 오브젝트
@@ -21,7 +22,6 @@ public class MonsterController : MonoBehaviour
     {
         FindObjects();
         InitMonster(); //몬스터 초기화
-
     }
     void Update()
     {
@@ -114,7 +114,7 @@ public class MonsterController : MonoBehaviour
     }
 
     void InitMonster() //몬스터가 생성, 활성화 될때 초기화 해주는 함수
-    {
+    {/*
         string monsterTag = gameObject.tag;
 
         switch (monsterTag) // 몬스터 태그에 따라 체력과 스피드 설정
@@ -144,7 +144,7 @@ public class MonsterController : MonoBehaviour
                 maxHp = 0f;
                 break;
         }
-
+        */
         currHp = maxHp; //최대 체력에 따라 현재 체력 설정
         hpbar.SetActive(false); // 체력바 숨기기
     }
@@ -169,7 +169,16 @@ public class MonsterController : MonoBehaviour
             hpbar.SetActive(true); //체력바 보이기
             if (currHp > 0)
             { //현재 체력이 남아있다면
-                currHp -= GameObject.Find("player").GetComponent<PlayerController>().giDamage; //현재 체력 갂기
+                if (collision.gameObject.name == "giPrefab")
+                {
+                    Debug.Log("-" + GameObject.Find("player").GetComponent<PlayerController>().giDamage);
+                    currHp -= GameObject.Find("player").GetComponent<PlayerController>().giDamage; //현재 체력 갂기
+                }
+                else
+                {
+                    Debug.Log("-" + GameObject.Find("tower").GetComponent<TowerController>().towerdamage);
+                    currHp -= GameObject.Find("tower").GetComponent<TowerController>().towerdamage; //현재 체력 갂기
+                }
                 hpfront.localScale = new Vector3(currHp / maxHp, 1.0f, 1.0f); // 현재 체력을 최대 체력으로 나누어서 hp조절
 
                 PoolManager.instance.ReturnPreFab(collision.gameObject); //충돌한 기는 비활성화(풀링)
