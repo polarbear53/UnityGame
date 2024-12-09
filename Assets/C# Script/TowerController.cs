@@ -16,10 +16,10 @@ public class TowerController : MonoBehaviour
     public GameObject hpbar; // 체력바를 보이거나 보이지 않게 하기 위해
     public RectTransform hpfront; // 체력바의 스케일을 조정해 닳게하기 위해
     public GameObject towergiPrefab; // 발사할 기(투사체)
-    public float attackRange = 10f; // 공격 범위
-    public float fireRate = 3f; // 발사 속도 (1초에 10번 발사)
-    public float towerdamage = 1f; // 공격력
-    public float projectileSpeed = 5f; // 기(투사체)의 속도
+    public float attackRange; // 공격 범위
+    public float fireRate; // 발사 속도 (1초에 10번 발사)
+    public float towerdamage; // 공격력
+    public float projectileSpeed; // 기(투사체)의 속도
 
     public Button TowerAttackSpeed, TowerDamage, TowerGiSpeed, TowerHpRecovery; // 레벨업 선택지 버튼(타워)
 
@@ -27,6 +27,11 @@ public class TowerController : MonoBehaviour
 
     void Start()
     {
+        attackRange = 30f;
+        fireRate = 3f;
+        towerdamage = 1f;
+        projectileSpeed = 10f;
+
         rigid2D = GetComponent<Rigidbody2D>(); // rigidbody 컴포넌트 가져오기
         currHp = maxHp; // 최대 체력만큼 현재 체력 설정
         fireCooldown = 0f;
@@ -241,6 +246,7 @@ public class TowerController : MonoBehaviour
 
     public void GameOver()
     {
+        PoolManager.instance.ClearAll();
         SceneManager.LoadScene("GameOver");
     }
 }

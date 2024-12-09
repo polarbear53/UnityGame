@@ -48,7 +48,6 @@ public class UiManagerController : MonoBehaviour
     private void Awake()
     {
         playerController = FindObjectOfType<PlayerController>();
-        tower = FindObjectOfType<TowerController>();
 
         if (instance == null)
         {
@@ -63,8 +62,7 @@ public class UiManagerController : MonoBehaviour
     }
 
     public void ShowLevelUpPanel(int[] randomIndexes)
-    { 
-
+    {
         HpUp.onClick.AddListener(() => ApplyLevelUpEffect(0));
         Recovery.onClick.AddListener(() => ApplyLevelUpEffect(1));
         DamageUp.onClick.AddListener(() => ApplyLevelUpEffect(2));
@@ -153,23 +151,24 @@ public class UiManagerController : MonoBehaviour
                 break;
             case 4: // 타워 투사체 발사 속도 up
                 // 타워, 타워2, 타워3, 타워4가 있을 경우
+                if (tower.fireRate <= 0.1f) break;
                 if (tower2 != null && tower3 != null && tower4 != null)
                 {
-                    tower.fireRate += 0.5f;
-                    tower2.fireRate += 0.5f;
-                    tower3.fireRate += 0.5f;
-                    tower4.fireRate += 0.5f;
+                    tower.fireRate -= 0.1f;
+                    tower2.fireRate -= 0.1f;
+                    tower3.fireRate -= 0.1f;
+                    tower4.fireRate -= 0.1f;
                 }
                 // 타워, 타워2가 있을 경우
                 else if (tower2 != null)
                 {
-                    tower.fireRate += 0.5f;
-                    tower2.fireRate += 0.5f;
+                    tower.fireRate -= 0.1f;
+                    tower2.fireRate -= 0.1f;
                 }
                 // 타워만 있을 경우
                 else
                 {
-                    tower.fireRate += 0.5f;
+                    tower.fireRate -= 0.1f;
                 }
                 Debug.Log("타워 투사체 발사 속도 증가!");
                 break;
@@ -332,6 +331,9 @@ public class UiManagerController : MonoBehaviour
         {
             int buttonIndex = selectedIndexes[i];
             Button button = buttons[buttonIndex];
+
+            // 텍스트 제거
+            button.GetComponentInChildren<TextMeshProUGUI>().text = string.Empty;
 
             // 위치 설정
             button.transform.position = positionList[i];
