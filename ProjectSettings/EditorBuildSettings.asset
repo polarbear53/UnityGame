@@ -12,34 +12,34 @@ EditorBuildSettings:
     path: Assets/Scenes/StartStoryScene.unity
     guid: b5c6d7358c22bb240aa761d9bd3a1d82
   - enabled: 1
-    path: Assets/Scenes/GameScene1.unity
+    path: Assets/Scenes/GameScene/GameScene1.unity
     guid: bfc7ccfe074299846a7afc84f877cfb4
   - enabled: 1
-    path: Assets/Scenes/ClearNextScene2.unity
+    path: Assets/Scenes/ClearNextScene/ClearNextScene2.unity
     guid: d526030fa85bf604685e93c9eb5806f3
   - enabled: 1
-    path: Assets/Scenes/GameScene2.unity
+    path: Assets/Scenes/GameScene/GameScene2.unity
     guid: 19654c3553ae46a4f89bc907ceb46af6
   - enabled: 1
-    path: Assets/Scenes/ClearNextScene3.unity
+    path: Assets/Scenes/ClearNextScene/ClearNextScene3.unity
     guid: d236a51659e7f9345bac7a6463870128
   - enabled: 1
-    path: Assets/Scenes/GameScene3.unity
+    path: Assets/Scenes/GameScene/GameScene3.unity
     guid: 4c5560223507c8b44a93e07cc4b59b25
   - enabled: 1
-    path: Assets/Scenes/ClearNextScene4.unity
+    path: Assets/Scenes/ClearNextScene/ClearNextScene4.unity
     guid: 2e3737a4ee00a064a833d9ce68591622
   - enabled: 1
-    path: Assets/Scenes/GameScene4.unity
+    path: Assets/Scenes/GameScene/GameScene4.unity
     guid: 3a16ffe827cbcbc4c9de20742ae955b8
   - enabled: 1
-    path: Assets/Scenes/ClearNextScene5.unity
+    path: Assets/Scenes/ClearNextScene/ClearNextScene5.unity
     guid: 312a4ae543e72ea4bb3cb2f63334adcb
   - enabled: 1
-    path: Assets/Scenes/GameScene5.unity
+    path: Assets/Scenes/GameScene/GameScene5.unity
     guid: de69427fd19932c419433c32aed923c9
   - enabled: 1
-    path: Assets/Scenes/ClearNextScene6.unity
+    path: Assets/Scenes/ClearNextScene/ClearNextScene6.unity
     guid: af94d911f47b53146bad259e0cc67b8e
   - enabled: 1
     path: Assets/Scenes/GameOver.unity

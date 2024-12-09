@@ -32,12 +32,6 @@ public class TowerGiController : MonoBehaviour
             PoolManager.instance.ReturnPreFab(gameObject);
             return;
         }
-        else {
-            // 타겟 방향으로 이동
-            Vector3 direction = (target.transform.position - transform.position).normalized;
-            transform.position += direction * speed * Time.deltaTime;
-        }
-
         // 유지 시간이 지나면 소멸
         if (Time.time - spawnTime > lifetime)
         {
@@ -61,22 +55,10 @@ public class TowerGiController : MonoBehaviour
         this.target = target;
     }
 
-    public void SetSpeed(float speed)
-    {
-        this.speed = speed;
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject == target)
         {
-            // 타겟에 도달했을 때 데미지 입히기
-            var targetController = collision.GetComponent<MonsterController>();
-            if (targetController != null)
-            {
-                Debug.Log(dmg);
-                targetController.TakeDamage(dmg); // 데미지 1 주기
-            }
             PoolManager.instance.ReturnPreFab(gameObject); // 기 반환
         }
     }
