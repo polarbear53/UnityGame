@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2622647315128039533}
   - component: {fileID: 4210725701327047622}
   - component: {fileID: 2735374493473050338}
+  - component: {fileID: 4734889843034974082}
   m_Layer: 0
   m_Name: EXP
   m_TagString: exp
@@ -170,3 +171,15 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4734889843034974082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5951295954772999054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a899872f30fbd0c4f8dfead72dfb776f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

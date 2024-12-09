@@ -121,11 +121,11 @@ public class MonsterController : MonoBehaviour
         {
             case "eat":
                 speed = 3f;
-                maxHp = 2f;
+                maxHp = 3f;
                 break;
             case "gohome":
                 speed = 7f;
-                maxHp = 3f;
+                maxHp = 2f;
                 break;
             case "what":
                 speed = 3f;
@@ -169,7 +169,7 @@ public class MonsterController : MonoBehaviour
             hpbar.SetActive(true); //체력바 보이기
             if (currHp > 0)
             { //현재 체력이 남아있다면
-                currHp -= 1.0f; //현재 체력 갂기
+                currHp -= GameObject.Find("player").GetComponent<PlayerController>().giDamage; //현재 체력 갂기
                 hpfront.localScale = new Vector3(currHp / maxHp, 1.0f, 1.0f); // 현재 체력을 최대 체력으로 나누어서 hp조절
 
                 PoolManager.instance.ReturnPreFab(collision.gameObject); //충돌한 기는 비활성화(풀링)

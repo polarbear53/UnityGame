@@ -10,18 +10,23 @@ public class TowerGiController : MonoBehaviour
 {
     public Button TowerAttackSpeed, TowerDamage, TowerGiSpeed, TowerHpRecovery; // 레벨업 선택지 버튼(타워)
 
-    public float speed = 10f; // Gi 속도
+    TowerController tower;
+    public float speed; // Gi 속도
+    public float dmg;
     private float lifetime = 3f;
     private float spawnTime;
     private GameObject target;
 
     void Start()
     {
+        tower = GameObject.Find("tower").GetComponent<TowerController>();
         TimeSetGi(); // 생성, 호출 되었을 때 현재 시간을 저장
+        speed = tower.projectileSpeed;
     }
 
     void Update()
     {
+        dmg = tower.towerdamage;
         if (target == null)  //타켓이 없으면 반환
         {
             PoolManager.instance.ReturnPreFab(gameObject);
@@ -69,7 +74,8 @@ public class TowerGiController : MonoBehaviour
             var targetController = collision.GetComponent<MonsterController>();
             if (targetController != null)
             {
-                targetController.TakeDamage(1.0f); // 데미지 1 주기
+                Debug.Log(dmg);
+                targetController.TakeDamage(dmg); // 데미지 1 주기
             }
             PoolManager.instance.ReturnPreFab(gameObject); // 기 반환
         }
