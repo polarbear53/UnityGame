@@ -21,21 +21,27 @@ public class ScreenFader : MonoBehaviour
         time = 0;   
         FadeOutStart = true;
         click = false;
+        fadeImage.enabled = false;
     }
-
+    
     // Update is called once per frame
     void Update()
     {
         time += Time.deltaTime;
-        if(click || (time > 5f && FadeOutStart))
+        if (SceneManager.GetActiveScene().name != "MainScene" &&
+            SceneManager.GetActiveScene().name != "GameScene5")
         {
-            StartFadeOut();
-            FadeOutStart = false;
+            if (click || (time > 5f && FadeOutStart))
+            {
+                StartFadeOut();
+                FadeOutStart = false;
+            }
+            if (Input.GetMouseButtonDown(0)) click = true;
         }
-        if (Input.GetMouseButtonDown(0)) click = true;
     }
     public void StartFadeOut()
     {
+        fadeImage.enabled = true;
         StartCoroutine(FadeOut());
     }
 

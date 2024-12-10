@@ -39,6 +39,9 @@ EditorBuildSettings:
     path: Assets/Scenes/GameScene/GameScene5.unity
     guid: de69427fd19932c419433c32aed923c9
   - enabled: 1
+    path: Assets/Scenes/EndingScene.unity
+    guid: 52dae564fa36a4841b50f11f171f552a
+  - enabled: 1
     path: Assets/Scenes/ClearNextScene/ClearNextScene6.unity
     guid: af94d911f47b53146bad259e0cc67b8e
   - enabled: 1
