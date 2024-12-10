@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour
     public Image timerBarFront; // 타이머 바의 프런트(RectTransform)
     public GameObject timerBackground; // 타이머의 배경 부분
     private float timerMaxDuration; // 타이머의 최대 시간
-    private float timerCurrentTime; // 타이머의 현재 시간
+    public float timerCurrentTime; // 타이머의 현재 시간
 
     public Button HpUp, Recovery, DamageUp, SpeedUp; // 레벨업 선택지 버튼(플레이어)
     public Button TowerAttackSpeed, TowerDamage, TowerGiSpeed, TowerHpRecovery; // 레벨업 선택지 버튼(타워)
@@ -81,10 +81,21 @@ public class PlayerController : MonoBehaviour
             timerCurrentTime -= Time.deltaTime; // 시간 감소
             UpdateTimerBar(); // 타이머 바 업데이트
 
+            if (timerCurrentTime <= 1f && SceneManager.GetActiveScene().name == "GameScene5")
+            {
+                GameObject.Find("ScreenFader").GetComponent<ScreenFader>().StartFadeOut();
+            }
             if (timerCurrentTime <= 0) // 시간이 모두 소진되면
             {
-                timerCurrentTime = 0; // 타이머를 0으로 고정
-                StageClear(); // 스테이지 클리어 처리
+                if (SceneManager.GetActiveScene().name != "GameScene5")
+                {
+                    timerCurrentTime = 0; // 타이머를 0으로 고정
+                    StageClear(); // 스테이지 클리어 처리
+                }
+                else
+                {
+                    timerCurrentTime = 0;
+                }
             }
         }
 
