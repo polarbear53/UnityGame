@@ -52,6 +52,7 @@ public class PlayerController : MonoBehaviour
 
     private bool isLevelingUp = false;
 
+    PopSound pop;
     void Start()
     {
         rigid2D = GetComponent<Rigidbody2D>(); //rigidbody 컴포넌트 가져오기
@@ -70,6 +71,8 @@ public class PlayerController : MonoBehaviour
 
         ShootRate = 0.3f;
         giDamage = 1f;
+
+        pop = GameObject.Find("PopSound").GetComponent<PopSound>();
     }
 
     void Update()
@@ -193,7 +196,8 @@ public class PlayerController : MonoBehaviour
 
     public void GainExperience(float exp)
     {
-
+        pop.audio.pitch = 2;
+        pop.audio.PlayOneShot(pop.pop);
         currExp += exp; // 경험치 증가
         UpdateExpBar(); // 경험치바 업데이트
 
@@ -207,7 +211,8 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Level Up!");
 
         UpdateExpBar(); // 경험치바 업데이트
-
+        pop.audio.pitch = 1;
+        pop.audio.PlayOneShot(pop.levelup);
         // 게임 일시정지
         Time.timeScale = 0;
 
@@ -234,6 +239,8 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("monster")) //eat 태그를 가진 오브젝트와 부딪히면
         {
+            pop.audio.pitch = 1.0f;
+            pop.audio.PlayOneShot(pop.hurt);
             if (currHp > 0)
             { //현재 체력이 남아있다면
                 currHp -= collision.gameObject.GetComponent<MonsterController>().dmg; //체력 1A기
@@ -326,6 +333,8 @@ public class PlayerController : MonoBehaviour
 
     void Shoot()
     { // 기를 쏘는 함수
+        pop.audio.pitch = 1f;
+        pop.audio.PlayOneShot(pop.pop);
         GameObject gi = PoolManager.instance.GetPreFab(giPrefab); //풀에서 기를 가져오기
         gi.transform.position = transform.position; //기의 위치를 플레이어의 위치로 이동
         gi.GetComponent<Rigidbody2D>().velocity = dir * giSpeed; //설정한 기의 속도만큼 마우스 위치로 발사
