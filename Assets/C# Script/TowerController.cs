@@ -25,6 +25,7 @@ public class TowerController : MonoBehaviour
 
     private float fireCooldown; // 발사 쿨다운 시간
 
+    PopSound pop;
     void Start()
     {
         attackRange = 30f;
@@ -35,6 +36,8 @@ public class TowerController : MonoBehaviour
         rigid2D = GetComponent<Rigidbody2D>(); // rigidbody 컴포넌트 가져오기
         currHp = maxHp; // 최대 체력만큼 현재 체력 설정
         fireCooldown = 0f;
+
+        pop = GameObject.Find("PopSound").GetComponent<PopSound>();
     }
 
     void Update()
@@ -197,6 +200,8 @@ public class TowerController : MonoBehaviour
     */
     void FireProjectile(GameObject target)
     {
+        pop.audio.pitch = 1f;
+        pop.audio.PlayOneShot(pop.pop);
         GameObject projectile = PoolManager.instance.GetPreFab(towergiPrefab);
         projectile.transform.position = transform.position;
         TowerGiController projectileScript = projectile.GetComponent<TowerGiController>();
@@ -236,6 +241,8 @@ public class TowerController : MonoBehaviour
 
     void TakeDamage(float damage, GameObject monster)
     {
+        pop.audio.pitch = 1.0f;
+        pop.audio.PlayOneShot(pop.hurt);
         if (currHp > 0)
         {
             currHp -= damage;

@@ -18,10 +18,12 @@ public class MonsterController : MonoBehaviour
     public RectTransform hpfront; // 체력바의 스케일을 조정해 닳게하기 위해
     public GameObject expPrefab; // 경험치 오브젝트
 
+    PopSound pop;
     void Awake()
     {
         FindObjects();
         InitMonster(); //몬스터 초기화
+        pop = GameObject.Find("PopSound").GetComponent<PopSound>();
     }
     void Update()
     {

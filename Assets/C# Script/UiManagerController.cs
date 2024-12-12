@@ -81,7 +81,7 @@ public class UiManagerController : MonoBehaviour
         levelUpPanel.SetActive(true);
 
         // 1초 후에 버튼을 활성화
-        StartCoroutine(ActivateButtonsAfterDelay(1.5f));
+        StartCoroutine(ActivateButtonsAfterDelay(0.5f));
 
     }
 
