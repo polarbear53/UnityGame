@@ -149,7 +149,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 3
   maxHp: 10
-  dmg: 3
+  dmg: 2
   hpbar: {fileID: 5103442927165366650}
   hpfront: {fileID: 6862541164334632476}
   expPrefab: {fileID: 5951295954772999054, guid: e20cb2663c75add45854ba368caaf5bb, type: 3}
